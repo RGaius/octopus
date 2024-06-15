@@ -13,7 +13,7 @@ import org.gaius.datasource.InvokeContext;
 import org.gaius.datasource.ServiceContext;
 import org.gaius.datasource.exception.DatasourceException;
 import org.gaius.datasource.model.DatasourceProperties;
-import org.gaius.datasource.utils.TemplateUtil;
+import org.gaius.datasource.util.TemplateUtil;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

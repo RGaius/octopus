@@ -24,12 +24,23 @@ public class DatasourceDTO {
     private String name;
     
     /**
+     * 描述
+     */
+    private String description;
+    
+    /**
      * 数据源类型
      */
-    private String datasourceType;
+    private String type;
+    
+    /**
+     * 插件名称
+     */
+    private String pluginName;
     
     /**
      * 数据源配置
      */
     private Map<String, Object> content;
+    
 }

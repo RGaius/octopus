@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <!--
+     CREATE TABLE `datasource`
+    (
+        `id`          bigint      NOT NULL AUTO_INCREMENT comment '主键',
+        `name`        varchar(64) not null comment '名称',
+        `type`        tinyint(4) comment '类型',
+        `description` varchar(255) comment '描述',
+        `plugin_name` varchar(64) not null comment '插件名称',
+        `content`     longtext    not null comment '数据源内容',
+        `create_time` datetime    DEFAULT NULL,
+        `create_by`   varchar(32) DEFAULT NULL,
+        `update_time` datetime    DEFAULT NULL,
+        `update_by`   varchar(32) DEFAULT NULL,
+        PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB
+      AUTO_INCREMENT = 1
+      DEFAULT CHARSET = utf8 comment ='数据源表';
+      -->
+    <changeSet id="20240615-001" author="gaius">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="datasource"/>
+            </not>
+        </preConditions>
+        <createTable tableName="datasource" remarks="数据源表">
+            <column name="id" type="bigint" autoIncrement="true" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)" remarks="名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(32)" remarks="类型"/>
+            <column name="description" type="varchar(255)" remarks="描述"/>
+            <column name="plugin_name" type="varchar(64)" remarks="插件名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content" type="longtext" remarks="数据源内容">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" type="datetime" remarks="创建时间"/>
+            <column name="create_by" type="varchar(32)" remarks="创建人"/>
+            <column name="update_time" type="datetime" remarks="更新时间"/>
+            <column name="update_by" type="varchar(32)" remarks="更新人"/>
+        </createTable>
+    </changeSet>
+    
+    <!--
+     - 数据源接口表
+    CREATE TABLE `datasource_interface`
+    (
+        `id`            bigint      NOT NULL AUTO_INCREMENT comment '主键',
+        `name`          varchar(64) not null comment '名称',
+        `datasource_id` bigint         not null comment '数据源ID',
+        `description`   varchar(255) comment '描述',
+        `content`       longtext    not null comment '接口内容',
+        `create_time`   datetime    DEFAULT NULL,
+        `create_by`     varchar(32) DEFAULT NULL,
+        `update_time`   datetime    DEFAULT NULL,
+        `update_by`     varchar(32) DEFAULT NULL,
+        PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB
+      AUTO_INCREMENT = 1
+      DEFAULT CHARSET = utf8 comment ='数据源接口表';
+    -->
+    <changeSet id="20240615-002" author="gaius">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="datasource_interface"/>
+            </not>
+        </preConditions>
+        <createTable tableName="datasource_interface" remarks="数据源接口表">
+            <column name="id" type="bigint" autoIncrement="true" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)" remarks="名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="datasource_id" type="bigint" remarks="数据源ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)" remarks="描述"/>
+            <column name="content" type="longtext" remarks="接口内容">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" type="datetime" remarks="创建时间"/>
+            <column name="create_by" type="varchar(32)" remarks="创建人"/>
+            <column name="update_time" type="datetime" remarks="更新时间"/>
+            <column name="update_by" type="varchar(32)" remarks="更新人"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

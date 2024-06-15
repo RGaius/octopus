@@ -15,7 +15,7 @@ CREATE TABLE `datasource`
 (
     `id`          bigint      NOT NULL AUTO_INCREMENT comment '主键',
     `name`        varchar(64) not null comment '名称',
-    `type`        tinyint(4) comment '类型',
+    `type`        varchar(32) comment '类型',
     `description` varchar(255) comment '描述',
     `plugin_name` varchar(64) not null comment '插件名称',
     `content`     longtext    not null comment '数据源内容',

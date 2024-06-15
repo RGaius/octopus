@@ -28,4 +28,28 @@ public interface DatasourceService extends IService<Datasource> {
      * @return 数据源对象
      */
     DatasourceDTO selectById(Long datasourceId);
+    
+    /**
+     * 新增数据源
+     *
+     * @param dto 数据源对象
+     * @return
+     */
+    boolean save(DatasourceDTO dto);
+    
+    /**
+     * 更新数据源
+     *
+     * @param dto 数据源对象
+     * @return
+     */
+    Boolean update(DatasourceDTO dto);
+    
+    /**
+     * 删除数据源
+     *
+     * @param dto 数据源对象
+     * @return
+     */
+    boolean deleteById(DatasourceDTO dto);
 }

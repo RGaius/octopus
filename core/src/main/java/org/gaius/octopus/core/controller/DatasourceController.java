@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
  * 数据源控制器
  *
  * @author zhaobo
- * @program octopus
- * @description 数据源控制器
  * @date 2024/6/7
  */
 @RestController
@@ -34,6 +32,30 @@ public class DatasourceController {
     @PostMapping("test")
     public Result<Available> available(@RequestBody DatasourceDTO dto) throws Exception {
         return Result.success(datasourceService.test(dto));
+    }
+    
+    /**
+     * 新增数据源
+     */
+    @PostMapping("save")
+    public Result<Boolean> add(@RequestBody DatasourceDTO dto) {
+        return Result.success(datasourceService.save(dto));
+    }
+    
+    /**
+     * 更新数据源
+     */
+    @PostMapping("update")
+    public Result<Boolean> update(@RequestBody DatasourceDTO dto) {
+        return Result.success(datasourceService.update(dto));
+    }
+    
+    /**
+     * 删除数据源
+     */
+    @PostMapping("delete")
+    public Result<Boolean> delete(@RequestBody DatasourceDTO dto) {
+        return Result.success(datasourceService.deleteById(dto));
     }
     
 }

@@ -63,16 +63,16 @@ public class DatasourceExecuteEngine extends AbstractExecuteEngine<DatasourceExe
      * @return
      */
     public DatasourceInstance<Object> getInstance(DatasourceDTO dto) throws PluginException {
-        String datasourceType = dto.getDatasourceType();
+        String pluginName = dto.getPluginName();
         DatasourceFactory<DatasourceInstance<Object>, Object> factory = defaultDatasourcePluginService.getFactory(
-                datasourceType);
+                pluginName);
         if (factory != null) {
             DatasourceProperties properties = DatasourceProperties.builder().datasourceName(dto.getName())
                     .datasourceId(dto.getId()).content(dto.getContent()).build();
             return factory.create(properties);
         }
-        log.error("Plugin:{} not found", datasourceType);
-        throw new PluginException("插件：【" + datasourceType + "】未找到");
+        log.error("Plugin:{} not found", pluginName);
+        throw new PluginException("插件：【" + pluginName + "】未找到");
     }
     
     @Override
@@ -88,9 +88,9 @@ public class DatasourceExecuteEngine extends AbstractExecuteEngine<DatasourceExe
     public void destroy(ExecuteContext<DatasourceExecuteDTO> context) {
         DatasourceExecuteDTO content = context.getContent();
         DatasourceDTO datasource = content.getDatasource();
-        String datasourceType = datasource.getDatasourceType();
+        String pluginName = datasource.getPluginName();
         DatasourceFactory<DatasourceInstance<Object>, Object> factory = defaultDatasourcePluginService.getFactory(
-                datasourceType);
+                pluginName);
         if (factory != null) {
             DatasourceProperties properties = DatasourceProperties.builder().datasourceName(datasource.getName())
                     .datasourceId(datasource.getId()).content(datasource.getContent()).build();

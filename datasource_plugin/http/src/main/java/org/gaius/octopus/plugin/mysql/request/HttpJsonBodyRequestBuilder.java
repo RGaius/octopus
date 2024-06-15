@@ -5,7 +5,7 @@ import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import org.apache.commons.collections4.MapUtils;
-import org.gaius.datasource.utils.TemplateUtil;
+import org.gaius.datasource.util.TemplateUtil;
 import org.gaius.octopus.plugin.mysql.constant.HTTPConstant;
 import org.gaius.octopus.plugin.mysql.utils.HTTPUtil;
 

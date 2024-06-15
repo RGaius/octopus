@@ -5,7 +5,7 @@ import okhttp3.Request;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.gaius.datasource.utils.TemplateUtil;
+import org.gaius.datasource.util.TemplateUtil;
 import org.gaius.octopus.plugin.mysql.constant.HTTPConstant;
 import org.gaius.octopus.plugin.mysql.utils.HTTPUtil;
 

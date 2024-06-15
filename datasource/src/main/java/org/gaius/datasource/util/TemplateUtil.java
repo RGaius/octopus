@@ -1,4 +1,4 @@
-package org.gaius.datasource.utils;
+package org.gaius.datasource.util;
 
 import groovy.text.GStringTemplateEngine;
 import lombok.extern.slf4j.Slf4j;
