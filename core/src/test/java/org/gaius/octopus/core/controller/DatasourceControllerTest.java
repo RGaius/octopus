@@ -59,7 +59,7 @@ class DatasourceControllerTest {
         DatasourceDTO requestBody = new DatasourceDTO();
         requestBody.setId(1L);
         requestBody.setContent(datasourceInfo);
-        requestBody.setDatasourceType("mysqlPlugin");
+        requestBody.setPluginName("mysqlPlugin");
         // 将Java对象转换为JSON字符串
         String requestBodyJson = JacksonUtil.writeObjectToString(requestBody);
         mockMvc.perform(

@@ -1,51 +1,37 @@
 package org.gaius.octopus.core.service;
 
-import jakarta.annotation.Resource;
+import org.gaius.datasource.exception.DatasourceException;
 import org.gaius.octopus.core.CoreApplicationTests;
+import org.gaius.octopus.core.execute.AbstractExecuteEngine;
+import org.gaius.octopus.core.execute.datasource.DatasourceExecuteDTO;
 import org.gaius.octopus.core.pojo.dto.DatasourceDTO;
 import org.gaius.octopus.core.pojo.dto.DatasourceInterfaceDTO;
-import org.junit.jupiter.api.AfterAll;
+import org.gaius.octopus.core.service.impl.DatasourceInterfaceServiceImpl;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.utility.DockerImageName;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 
 @ExtendWith(MockitoExtension.class)
 class DatasourceInterfaceServiceTest extends CoreApplicationTests {
     
-    @MockBean
+    @Mock
     DatasourceService datasourceService;
     
-    @Resource
-    DatasourceInterfaceService datasourceInterfaceService;
+    @Mock
+    AbstractExecuteEngine<DatasourceExecuteDTO> datasourceExecuteEngine;
     
-    private static MySQLContainer mysql;
-    
-    @BeforeAll
-    static void initContainer() {
-        mysql = new MySQLContainer<>(DockerImageName.parse("mysql:5.7.34"));
-        mysql.withPassword("123456");
-        mysql.withUsername("root");
-        mysql.withDatabaseName("test");
-        mysql.withInitScript("init.sql");
-        mysql.start();
-    }
-    
-    @AfterAll
-    static void tearDown() {
-        mysql.stop();
-    }
-    
+    @InjectMocks
+    DatasourceInterfaceServiceImpl datasourceInterfaceService;
     
     @BeforeEach
     void setUp() {
@@ -53,24 +39,33 @@ class DatasourceInterfaceServiceTest extends CoreApplicationTests {
     }
     
     @Test
-    void test1() throws Exception {
-        Integer mysqlMappedPort = mysql.getMappedPort(MySQLContainer.MYSQL_PORT);
-        
-        Map<String, Object> datasourceInfo = Map.of("host", mysql.getHost(), "port", mysqlMappedPort, "user",
-                mysql.getUsername(), "password", mysql.getPassword(), "database", mysql.getDatabaseName(),
-                "driverClass", "com.mysql.cj.jdbc.Driver", "urlFormat",
-                "jdbc:mysql://${host}:${port}/${database}?serverTimezone=UTC&characterEncoding=utf-8&allowPublicKeyRetrieval=true",
-                "pool", true);
+    void test_when_datasource_exist_then_return_success() throws Exception {
+        // 模拟数据源
         DatasourceDTO datasourceDTO = new DatasourceDTO();
         datasourceDTO.setId(1L);
-        datasourceDTO.setContent(datasourceInfo);
-        datasourceDTO.setDatasourceType("mysqlPlugin");
+        datasourceDTO.setContent(Collections.emptyMap());
+        datasourceDTO.setPluginName("mysqlPlugin");
+        Mockito.doReturn(datasourceDTO).when(datasourceService).selectById(1L);
+        // 模拟数据源实例执行结果
+        Mockito.doReturn(new ArrayList<>()).when(datasourceExecuteEngine).invoke(Mockito.any());
+        
         DatasourceInterfaceDTO dto = new DatasourceInterfaceDTO();
         dto.setDatasourceId(1L);
         dto.setName("test");
         dto.setContent(Map.of("sql", "select * from user"));
-        Mockito.when(datasourceService.selectById(1L)).thenReturn(datasourceDTO);
         Object object = datasourceInterfaceService.test(dto);
         Assertions.assertInstanceOf(ArrayList.class, object, "返回值类型错误");
+    }
+    
+    // 当数据源不存在时，返回数据源异常
+    @Test
+    void test_when_datasource_not_exist_then_return_datasource_exception() {
+        Mockito.doReturn(null).when(datasourceService).selectById(1L);
+        DatasourceInterfaceDTO dto = new DatasourceInterfaceDTO();
+        dto.setDatasourceId(1L);
+        dto.setName("test");
+        dto.setContent(Map.of("sql", "select * from user"));
+        Assertions.assertThrowsExactly(DatasourceException.class, () -> datasourceInterfaceService.test(dto),
+                "数据源不存在时未返回异常");
     }
 }
