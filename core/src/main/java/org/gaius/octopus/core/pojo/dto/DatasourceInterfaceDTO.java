@@ -29,6 +29,12 @@ public class DatasourceInterfaceDTO {
     private String name;
     
     /**
+     * 接口描述
+     */
+    private String description;
+    
+    
+    /**
      * 接口内容
      */
     private Map<String, Object> content;
@@ -37,4 +43,5 @@ public class DatasourceInterfaceDTO {
      * 接口参数
      */
     private Map<String, Object> args;
+    
 }

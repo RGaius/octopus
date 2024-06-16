@@ -1,10 +1,14 @@
 package org.gaius.octopus.core.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import org.gaius.datasource.Available;
 import org.gaius.octopus.common.model.Result;
 import org.gaius.octopus.core.pojo.dto.DatasourceDTO;
+import org.gaius.octopus.core.pojo.query.DatasourceQuery;
+import org.gaius.octopus.core.pojo.vo.DatasourceVO;
 import org.gaius.octopus.core.service.DatasourceService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,4 +62,13 @@ public class DatasourceController {
         return Result.success(datasourceService.deleteById(dto));
     }
     
+    /**
+     * 数据源分页查询
+     *
+     * @param query
+     */
+    @GetMapping("page")
+    public Result<Page<DatasourceVO>> page(DatasourceQuery query) {
+        return Result.success(datasourceService.pageByQuery(query));
+    }
 }

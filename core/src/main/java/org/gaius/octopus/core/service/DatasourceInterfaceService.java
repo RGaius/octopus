@@ -1,6 +1,11 @@
 package org.gaius.octopus.core.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import org.gaius.octopus.core.pojo.dto.DatasourceInterfaceDTO;
+import org.gaius.octopus.core.pojo.entity.DatasourceInterface;
+import org.gaius.octopus.core.pojo.query.DatasourceInterfaceQuery;
+import org.gaius.octopus.core.pojo.vo.DatasourceInterfaceVO;
 
 /**
  * @author zhaobo
@@ -8,7 +13,7 @@ import org.gaius.octopus.core.pojo.dto.DatasourceInterfaceDTO;
  * @description 数据源接口
  * @date 2024/6/7
  */
-public interface DatasourceInterfaceService {
+public interface DatasourceInterfaceService extends IService<DatasourceInterface> {
     
     /**
      * 数据源测试
@@ -17,4 +22,12 @@ public interface DatasourceInterfaceService {
      * @return
      */
     Object test(DatasourceInterfaceDTO dto) throws Exception;
+    
+    boolean save(DatasourceInterfaceDTO dto);
+    
+    boolean update(DatasourceInterfaceDTO dto);
+    
+    boolean deleteById(DatasourceInterfaceDTO dto);
+    
+    Page<DatasourceInterfaceVO> pageByQuery(DatasourceInterfaceQuery query);
 }

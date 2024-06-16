@@ -1,9 +1,12 @@
 package org.gaius.octopus.core.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.gaius.datasource.Available;
 import org.gaius.octopus.core.pojo.dto.DatasourceDTO;
 import org.gaius.octopus.core.pojo.entity.Datasource;
+import org.gaius.octopus.core.pojo.query.DatasourceQuery;
+import org.gaius.octopus.core.pojo.vo.DatasourceVO;
 
 /**
  * @author zhaobo
@@ -52,4 +55,12 @@ public interface DatasourceService extends IService<Datasource> {
      * @return
      */
     boolean deleteById(DatasourceDTO dto);
+    
+    /**
+     * 分页查询
+     *
+     * @param query 查询对象
+     * @return
+     */
+    Page<DatasourceVO> pageByQuery(DatasourceQuery query);
 }

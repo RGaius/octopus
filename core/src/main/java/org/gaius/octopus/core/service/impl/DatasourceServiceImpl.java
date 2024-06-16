@@ -1,8 +1,12 @@
 package org.gaius.octopus.core.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.gaius.datasource.Available;
 import org.gaius.octopus.common.utils.JacksonUtil;
 import org.gaius.octopus.core.execute.AbstractExecuteEngine;
@@ -11,10 +15,13 @@ import org.gaius.octopus.core.execute.datasource.DatasourceExecuteDTO;
 import org.gaius.octopus.core.mapper.DatasourceMapper;
 import org.gaius.octopus.core.pojo.dto.DatasourceDTO;
 import org.gaius.octopus.core.pojo.entity.Datasource;
+import org.gaius.octopus.core.pojo.query.DatasourceQuery;
+import org.gaius.octopus.core.pojo.vo.DatasourceVO;
 import org.gaius.octopus.core.service.DatasourceService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.stream.Collectors;
 
 /**
  * @author zhaobo
@@ -88,5 +95,31 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
             return true;
         }
         return false;
+    }
+    
+    @Override
+    public Page<DatasourceVO> pageByQuery(DatasourceQuery query) {
+        Page<Datasource> page = new Page<>(query.getCurrent(), query.getSize());
+        LambdaQueryWrapper<Datasource> lambdaQuery = Wrappers.lambdaQuery();
+        lambdaQuery.like(StringUtils.isNotEmpty(query.getName()), Datasource::getName, query.getName())
+                .eq(StringUtils.isNotEmpty(query.getType()), Datasource::getType, query.getType());
+        Page<Datasource> datasourcePage = this.page(page, lambdaQuery);
+        Page<DatasourceVO> voPage = new Page<>();
+        voPage.setCurrent(datasourcePage.getCurrent());
+        voPage.setSize(datasourcePage.getSize());
+        voPage.setTotal(datasourcePage.getTotal());
+        voPage.setPages(datasourcePage.getPages());
+        voPage.setRecords(datasourcePage.getRecords().stream().map(datasource -> {
+            DatasourceVO vo = new DatasourceVO();
+            vo.setId(datasource.getId());
+            vo.setName(datasource.getName());
+            vo.setType(datasource.getType());
+            vo.setPluginName(datasource.getPluginName());
+            vo.setDescription(datasource.getDescription());
+            vo.setCreateTime(datasource.getCreateTime());
+            vo.setUpdateTime(datasource.getUpdateTime());
+            return vo;
+        }).collect(Collectors.toList()));
+        return voPage;
     }
 }
