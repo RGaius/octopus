@@ -44,7 +44,7 @@ class DatasourceInterfaceServiceTest extends CoreApplicationTests {
         DatasourceDTO datasourceDTO = new DatasourceDTO();
         datasourceDTO.setId(1L);
         datasourceDTO.setContent(Collections.emptyMap());
-        datasourceDTO.setPluginName("mysqlPlugin");
+        datasourceDTO.setType("MySQL");
         Mockito.doReturn(datasourceDTO).when(datasourceService).selectById(1L);
         // 模拟数据源实例执行结果
         Mockito.doReturn(new ArrayList<>()).when(datasourceExecuteEngine).invoke(Mockito.any());

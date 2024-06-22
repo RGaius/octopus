@@ -15,7 +15,7 @@ public class HTTPDatasourcePlugin implements DatasourcePlugin {
     
     @Override
     public String getName() {
-        return "httpPlugin";
+        return "HTTP";
     }
     
     @Override

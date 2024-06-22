@@ -35,11 +35,6 @@ public class Datasource {
     private String type;
     
     /**
-     * 插件名称
-     */
-    private String pluginName;
-    
-    /**
      * 数据源内容
      */
     private String content;

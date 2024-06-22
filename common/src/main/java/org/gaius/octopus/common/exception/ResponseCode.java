@@ -10,7 +10,7 @@ package org.gaius.octopus.common.exception;
  */
 public interface ResponseCode {
     
-    int SUCCESS = 200;
+    int SUCCESS = 0;
     
     int SYSTEM_ERROR = 500;
     

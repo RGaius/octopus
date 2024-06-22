@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2024/6/7
  */
 @RestController
-@RequestMapping("/api/v1/datasource")
+@RequestMapping("/api/datasource/v1")
 public class DatasourceController {
     
     @Resource

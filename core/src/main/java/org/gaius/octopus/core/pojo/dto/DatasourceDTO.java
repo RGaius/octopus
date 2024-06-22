@@ -34,11 +34,6 @@ public class DatasourceDTO {
     private String type;
     
     /**
-     * 插件名称
-     */
-    private String pluginName;
-    
-    /**
      * 数据源配置
      */
     private Map<String, Object> content;

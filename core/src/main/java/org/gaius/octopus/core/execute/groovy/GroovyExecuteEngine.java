@@ -56,7 +56,7 @@ public class GroovyExecuteEngine extends AbstractExecuteEngine<String> {
             String scriptKey = DigestUtils.md5Hex(scriptText);
             GroovyShell groovyShell = new GroovyShell(compilerConfiguration);
             GroovyCodeSource gcs = new GroovyCodeSource(scriptText, scriptKey, "/groovy/script");
-            Script script = (Script) groovyShell.getClassLoader().parseClass(gcs).newInstance();
+            Script script = (Script) groovyShell.getClassLoader().parseClass(gcs).getConstructor().newInstance();
             Binding binding = wrapperGlobalVariables(context);
             script.setBinding(binding);
             return script.run();

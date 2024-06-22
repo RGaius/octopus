@@ -52,7 +52,7 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
         DatasourceDTO dto = new DatasourceDTO();
         dto.setId(datasource.getId());
         dto.setName(datasource.getName());
-        dto.setType(datasource.getPluginName());
+        dto.setType(datasource.getType());
         dto.setContent(JacksonUtil.parseToTargetObject(datasource.getContent()));
         return dto;
     }
@@ -63,7 +63,6 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
         Datasource datasource = new Datasource();
         datasource.setName(dto.getName());
         datasource.setDescription(dto.getDescription());
-        datasource.setPluginName(dto.getPluginName());
         datasource.setType(dto.getType());
         datasource.setContent(JacksonUtil.writeObjectToString(dto.getContent()));
         Date date = new Date();
@@ -79,7 +78,6 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
         datasource.setId(dto.getId());
         datasource.setName(dto.getName());
         datasource.setDescription(dto.getDescription());
-        datasource.setPluginName(dto.getPluginName());
         datasource.setType(dto.getType());
         datasource.setContent(JacksonUtil.writeObjectToString(dto.getContent()));
         datasource.setUpdateTime(new Date());
@@ -114,7 +112,6 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
             vo.setId(datasource.getId());
             vo.setName(datasource.getName());
             vo.setType(datasource.getType());
-            vo.setPluginName(datasource.getPluginName());
             vo.setDescription(datasource.getDescription());
             vo.setCreateTime(datasource.getCreateTime());
             vo.setUpdateTime(datasource.getUpdateTime());

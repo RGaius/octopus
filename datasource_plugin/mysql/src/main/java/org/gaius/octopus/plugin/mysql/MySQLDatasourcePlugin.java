@@ -15,7 +15,7 @@ public class MySQLDatasourcePlugin implements DatasourcePlugin {
     
     @Override
     public String getName() {
-        return "mysqlPlugin";
+        return "MySQL";
     }
     
     @Override

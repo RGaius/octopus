@@ -32,6 +32,7 @@
         <okhttp.version>4.12.0</okhttp.version>
         <testcontainers.version>1.17.5</testcontainers.version>
         <mockserver.version>5.14.0</mockserver.version>
+        <jgrapht.version>1.5.2</jgrapht.version>
     </properties>
     <modules>
         <module>core</module>
@@ -133,6 +134,12 @@
                 <version>${testcontainers.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.jgrapht</groupId>
+                <artifactId>jgrapht-core</artifactId>
+                <version>${jgrapht.version}</version>
             </dependency>
             
             <dependency>
