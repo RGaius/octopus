@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 import java.util.Map;
@@ -25,20 +25,20 @@ import static org.mockito.Mockito.when;
 @Tag("use-container")
 class PostgresDatasourceServiceTest {
     
-    private static MySQLContainer mysql;
+    private static PostgreSQLContainer postgresql;
     
     @BeforeAll
     static void initContainer() {
-        mysql = new MySQLContainer<>(DockerImageName.parse("mysql:5.7.34"));
-        mysql.withPassword("123456");
-        mysql.withUsername("root");
-        mysql.withDatabaseName("test");
-        mysql.start();
+        postgresql = new PostgreSQLContainer<>(DockerImageName.parse("postgres:14.12"));
+        postgresql.withPassword("123456");
+        postgresql.withUsername("root");
+        postgresql.withDatabaseName("test");
+        postgresql.start();
     }
     
     @AfterAll
     static void tearDown() {
-        mysql.stop();
+        postgresql.stop();
     }
     
     @BeforeEach
@@ -48,10 +48,11 @@ class PostgresDatasourceServiceTest {
     
     @Test
     void available_success_when_datasource_info_is_valid_then_return_available() {
-        Integer mysqlMappedPort = mysql.getMappedPort(MySQLContainer.MYSQL_PORT);
+        Integer postgresqlMappedPort = postgresql.getMappedPort(PostgreSQLContainer.POSTGRESQL_PORT);
         // 建构测试数据
-        Map<String, Object> datasourceInfo = Map.of("host", mysql.getHost(), "port", mysqlMappedPort, "user", "root",
-                "password", "123456", "database", "test", "driverClass", "com.mysql.cj.jdbc.Driver", "urlFormat",
+        Map<String, Object> datasourceInfo = Map.of("host", postgresql.getHost(), "port", postgresqlMappedPort, "user",
+                "root", "password", "123456", "database", "test", "driverClass", "com.mysql.cj.jdbc.Driver",
+                "urlFormat",
                 "jdbc:mysql://${host}:${port}/${database}?serverTimezone=UTC&characterEncoding=utf-8&allowPublicKeyRetrieval=true");
         DatasourceProperties datasourceProperties = new DatasourceProperties();
         datasourceProperties.setContent(datasourceInfo);
@@ -70,10 +71,11 @@ class PostgresDatasourceServiceTest {
     // 密码不正确，测试结果为false
     @Test
     void available_when_network_unavailable_then_return_unavailable() {
-        Integer mysqlMappedPort = mysql.getMappedPort(MySQLContainer.MYSQL_PORT);
+        Integer postgresqlMappedPort = postgresql.getMappedPort(PostgreSQLContainer.POSTGRESQL_PORT);
         // 构建测试数据
-        Map<String, Object> datasourceInfo = Map.of("host", mysql.getHost(), "port", mysqlMappedPort, "user", "root",
-                "password", "123123", "database", "test", "driverClass", "com.mysql.cj.jdbc.Driver", "urlFormat",
+        Map<String, Object> datasourceInfo = Map.of("host", postgresql.getHost(), "port", postgresqlMappedPort, "user",
+                "root", "password", "123123", "database", "test", "driverClass", "com.mysql.cj.jdbc.Driver",
+                "urlFormat",
                 "jdbc:mysql://${host}:${port}/${database}?serverTimezone=UTC&characterEncoding=utf-8&allowPublicKeyRetrieval=true");
         DatasourceProperties datasourceProperties = new DatasourceProperties();
         datasourceProperties.setContent(datasourceInfo);
