@@ -8,8 +8,8 @@
         <version>${revision}</version>
     </parent>
     <groupId>org.gaius.octopus.plugin</groupId>
-    <artifactId>postgresql</artifactId>
-    <name>postgresql-plugin</name>
+    <artifactId>jdbc</artifactId>
+    <name>jdbc-plugin</name>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -39,12 +39,6 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
         </dependency>
         
         <dependency>
@@ -80,17 +74,6 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
             <scope>test</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>test</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.gaius.octopus.plugin</groupId>
-            <artifactId>jdbc</artifactId>
         </dependency>
         
         <dependency>

@@ -11,9 +11,20 @@
     <name>plugin</name>
     <packaging>pom</packaging>
     <modules>
+        <module>jdbc</module>
         <module>mysql</module>
         <module>http</module>
         <module>postgresql</module>
     </modules>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.gaius.octopus.plugin</groupId>
+                <artifactId>jdbc</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

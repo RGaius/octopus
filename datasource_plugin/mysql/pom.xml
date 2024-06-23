@@ -48,6 +48,11 @@
         </dependency>
         
         <dependency>
+            <groupId>org.gaius.octopus.plugin</groupId>
+            <artifactId>jdbc</artifactId>
+        </dependency>
+        
+        <dependency>
             <artifactId>HikariCP</artifactId>
             <groupId>com.zaxxer</groupId>
         </dependency>
