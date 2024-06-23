@@ -13,6 +13,7 @@
     <modules>
         <module>mysql</module>
         <module>http</module>
+        <module>postgresql</module>
     </modules>
 
 </project>

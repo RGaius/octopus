@@ -9,6 +9,7 @@ import org.gaius.octopus.core.pojo.query.DatasourceQuery;
 import org.gaius.octopus.core.pojo.vo.DatasourceVO;
 import org.gaius.octopus.core.service.DatasourceService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,14 @@ public class DatasourceController {
     @PostMapping("test")
     public Result<Available> available(@RequestBody DatasourceDTO dto) throws Exception {
         return Result.success(datasourceService.test(dto));
+    }
+    
+    /**
+     * 获取数据源详情
+     */
+    @GetMapping("/{datasourceId}")
+    public Result<DatasourceDTO> detail(@PathVariable Long datasourceId) {
+        return Result.success(datasourceService.selectById(datasourceId));
     }
     
     /**

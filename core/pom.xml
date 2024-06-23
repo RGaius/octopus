@@ -77,7 +77,19 @@
         
         <dependency>
             <groupId>org.gaius.octopus.plugin</groupId>
+            <artifactId>http</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.gaius.octopus.plugin</groupId>
             <artifactId>mysql</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.gaius.octopus.plugin</groupId>
+            <artifactId>postgresql</artifactId>
             <version>${revision}</version>
         </dependency>
         
