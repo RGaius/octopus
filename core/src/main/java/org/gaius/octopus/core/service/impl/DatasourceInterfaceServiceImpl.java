@@ -59,7 +59,7 @@ public class DatasourceInterfaceServiceImpl extends ServiceImpl<DatasourceInterf
     @Override
     public boolean save(DatasourceInterfaceDTO dto) {
         // 校验数据源是否存在
-        if (datasourceService.selectById(dto.getDatasourceId()) != null) {
+        if (datasourceService.selectById(dto.getDatasourceId()) == null) {
             return false;
         }
         DatasourceInterface datasourceInterface = new DatasourceInterface();

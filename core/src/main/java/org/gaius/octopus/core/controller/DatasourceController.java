@@ -5,6 +5,7 @@ import jakarta.annotation.Resource;
 import org.gaius.datasource.Available;
 import org.gaius.octopus.common.model.Result;
 import org.gaius.octopus.core.pojo.dto.DatasourceDTO;
+import org.gaius.octopus.core.pojo.entity.Datasource;
 import org.gaius.octopus.core.pojo.query.DatasourceQuery;
 import org.gaius.octopus.core.pojo.vo.DatasourceVO;
 import org.gaius.octopus.core.service.DatasourceService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 数据源控制器
@@ -79,5 +82,10 @@ public class DatasourceController {
     @GetMapping("page")
     public Result<Page<DatasourceVO>> page(DatasourceQuery query) {
         return Result.success(datasourceService.pageByQuery(query));
+    }
+    
+    @GetMapping("list")
+    public Result<List<Datasource>> list() {
+        return Result.success(datasourceService.list());
     }
 }

@@ -1,5 +1,6 @@
 package org.gaius.octopus.core.pojo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,8 +14,17 @@ import java.util.Map;
  */
 @Data
 public class DatasourceInterfaceVO {
+    
+    /**
+     * 接口ID
+     */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
     
+    /**
+     * 数据源ID
+     */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long datasourceId;
     
     private String datasourceName;
@@ -35,20 +45,21 @@ public class DatasourceInterfaceVO {
     private String type;
     
     /**
-     * 插件名称
-     */
-    private String pluginName;
-    
-    /**
      * 数据源内容
      */
     private Map<String, Object> content;
+    
+    /**
+     * 参数
+     */
     private Map<String, Object> args;
     
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     
     private String createBy;
     
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     
     private String updateBy;

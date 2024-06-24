@@ -3,11 +3,14 @@ package org.gaius.octopus.core.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import org.gaius.octopus.common.model.Result;
+import org.gaius.octopus.core.pojo.dto.DatasourceDTO;
 import org.gaius.octopus.core.pojo.dto.DatasourceInterfaceDTO;
+import org.gaius.octopus.core.pojo.entity.DatasourceInterface;
 import org.gaius.octopus.core.pojo.query.DatasourceInterfaceQuery;
 import org.gaius.octopus.core.pojo.vo.DatasourceInterfaceVO;
 import org.gaius.octopus.core.service.DatasourceInterfaceService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +40,14 @@ public class DatasourceInterfaceController {
     @PostMapping("test")
     public Result<Object> available(@RequestBody DatasourceInterfaceDTO dto) throws Exception {
         return Result.success(datasourceInterfaceService.test(dto));
+    }
+    
+    /**
+     * 获取数据源详情
+     */
+    @GetMapping("/{interfaceId}")
+    public Result<DatasourceInterface> detail(@PathVariable Long interfaceId) {
+        return Result.success(datasourceInterfaceService.getById(interfaceId));
     }
     
     /**
