@@ -13,7 +13,7 @@ import org.gaius.octopus.core.pojo.vo.DatasourceInterfaceVO;
  * @description 数据源接口
  * @date 2024/6/7
  */
-public interface DatasourceInterfaceService extends IService<DatasourceInterface> {
+public interface InterfaceService extends IService<DatasourceInterface> {
     
     /**
      * 数据源测试
@@ -23,13 +23,44 @@ public interface DatasourceInterfaceService extends IService<DatasourceInterface
      */
     Object test(DatasourceInterfaceDTO dto) throws Exception;
     
+    /**
+     * 保存
+     *
+     * @param dto 数据源接口对象
+     * @return
+     */
     boolean save(DatasourceInterfaceDTO dto);
+    
+    /**
+     * 更新
+     *
+     * @param dto 数据源接口对象
+     * @return
+     */
     
     boolean update(DatasourceInterfaceDTO dto);
     
+    /**
+     * 删除
+     *
+     * @param dto 数据源接口对象
+     * @return
+     */
     boolean deleteById(DatasourceInterfaceDTO dto);
     
+    /**
+     * 分页查询
+     *
+     * @param query 查询条件
+     * @return
+     */
     Page<DatasourceInterfaceVO> pageByQuery(DatasourceInterfaceQuery query);
     
+    /**
+     * 根据id查询
+     *
+     * @param interfaceId 接口id
+     * @return
+     */
     DatasourceInterfaceVO selectById(Long interfaceId);
 }

@@ -15,7 +15,7 @@ import org.gaius.octopus.core.pojo.dto.DatasourceInterfaceDTO;
 import org.gaius.octopus.core.pojo.entity.DatasourceInterface;
 import org.gaius.octopus.core.pojo.query.DatasourceInterfaceQuery;
 import org.gaius.octopus.core.pojo.vo.DatasourceInterfaceVO;
-import org.gaius.octopus.core.service.DatasourceInterfaceService;
+import org.gaius.octopus.core.service.InterfaceService;
 import org.gaius.octopus.core.service.DatasourceService;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +29,8 @@ import java.util.Date;
  */
 @Service
 @Slf4j
-public class DatasourceInterfaceServiceImpl extends ServiceImpl<DatasourceInterfaceMapper, DatasourceInterface>
-        implements DatasourceInterfaceService {
+public class InterfaceServiceImpl extends ServiceImpl<DatasourceInterfaceMapper, DatasourceInterface>
+        implements InterfaceService {
     
     @Resource
     private DatasourceService datasourceService;

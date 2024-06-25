@@ -3,12 +3,10 @@ package org.gaius.octopus.core.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import org.gaius.octopus.common.model.Result;
-import org.gaius.octopus.core.pojo.dto.DatasourceDTO;
 import org.gaius.octopus.core.pojo.dto.DatasourceInterfaceDTO;
-import org.gaius.octopus.core.pojo.entity.DatasourceInterface;
 import org.gaius.octopus.core.pojo.query.DatasourceInterfaceQuery;
 import org.gaius.octopus.core.pojo.vo.DatasourceInterfaceVO;
-import org.gaius.octopus.core.service.DatasourceInterfaceService;
+import org.gaius.octopus.core.service.InterfaceService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,10 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/interface/v1/")
-public class DatasourceInterfaceController {
+public class InterfaceController {
     
     @Resource
-    private DatasourceInterfaceService datasourceInterfaceService;
+    private InterfaceService interfaceService;
     
     /**
      * 数据源参数校验
@@ -39,7 +37,7 @@ public class DatasourceInterfaceController {
      */
     @PostMapping("test")
     public Result<Object> available(@RequestBody DatasourceInterfaceDTO dto) throws Exception {
-        return Result.success(datasourceInterfaceService.test(dto));
+        return Result.success(interfaceService.test(dto));
     }
     
     /**
@@ -47,7 +45,7 @@ public class DatasourceInterfaceController {
      */
     @GetMapping("/{interfaceId}")
     public Result<DatasourceInterfaceVO> detail(@PathVariable Long interfaceId) {
-        return Result.success(datasourceInterfaceService.selectById(interfaceId));
+        return Result.success(interfaceService.selectById(interfaceId));
     }
     
     /**
@@ -55,7 +53,7 @@ public class DatasourceInterfaceController {
      */
     @PostMapping("save")
     public Result<Boolean> add(@RequestBody DatasourceInterfaceDTO dto) {
-        return Result.success(datasourceInterfaceService.save(dto));
+        return Result.success(interfaceService.save(dto));
     }
     
     /**
@@ -63,7 +61,7 @@ public class DatasourceInterfaceController {
      */
     @PostMapping("update")
     public Result<Boolean> update(@RequestBody DatasourceInterfaceDTO dto) {
-        return Result.success(datasourceInterfaceService.update(dto));
+        return Result.success(interfaceService.update(dto));
     }
     
     /**
@@ -71,7 +69,7 @@ public class DatasourceInterfaceController {
      */
     @PostMapping("delete")
     public Result<Boolean> delete(@RequestBody DatasourceInterfaceDTO dto) {
-        return Result.success(datasourceInterfaceService.deleteById(dto));
+        return Result.success(interfaceService.deleteById(dto));
     }
     
     /**
@@ -81,7 +79,7 @@ public class DatasourceInterfaceController {
      */
     @GetMapping("page")
     public Result<Page<DatasourceInterfaceVO>> page(DatasourceInterfaceQuery query) {
-        return Result.success(datasourceInterfaceService.pageByQuery(query));
+        return Result.success(interfaceService.pageByQuery(query));
     }
     
 }

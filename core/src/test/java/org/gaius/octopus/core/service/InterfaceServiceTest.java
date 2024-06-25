@@ -6,7 +6,7 @@ import org.gaius.octopus.core.execute.AbstractExecuteEngine;
 import org.gaius.octopus.core.execute.datasource.DatasourceExecuteDTO;
 import org.gaius.octopus.core.pojo.dto.DatasourceDTO;
 import org.gaius.octopus.core.pojo.dto.DatasourceInterfaceDTO;
-import org.gaius.octopus.core.service.impl.DatasourceInterfaceServiceImpl;
+import org.gaius.octopus.core.service.impl.InterfaceServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @ExtendWith(MockitoExtension.class)
-class DatasourceInterfaceServiceTest extends CoreApplicationTests {
+class InterfaceServiceTest extends CoreApplicationTests {
     
     @Mock
     DatasourceService datasourceService;
@@ -31,7 +31,7 @@ class DatasourceInterfaceServiceTest extends CoreApplicationTests {
     AbstractExecuteEngine<DatasourceExecuteDTO> datasourceExecuteEngine;
     
     @InjectMocks
-    DatasourceInterfaceServiceImpl datasourceInterfaceService;
+    InterfaceServiceImpl datasourceInterfaceService;
     
     @BeforeEach
     void setUp() {
