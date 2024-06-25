@@ -46,8 +46,8 @@ public class DatasourceInterfaceController {
      * 获取数据源详情
      */
     @GetMapping("/{interfaceId}")
-    public Result<DatasourceInterface> detail(@PathVariable Long interfaceId) {
-        return Result.success(datasourceInterfaceService.getById(interfaceId));
+    public Result<DatasourceInterfaceVO> detail(@PathVariable Long interfaceId) {
+        return Result.success(datasourceInterfaceService.selectById(interfaceId));
     }
     
     /**

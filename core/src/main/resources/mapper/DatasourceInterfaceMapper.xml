@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gaius.octopus.core.mapper.DatasourceInterfaceMapper">
+    <resultMap id="BaseResultMap" type="org.gaius.octopus.core.pojo.entity.DatasourceInterface">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="datasource_id" property="datasourceId"/>
+        <result column="description" property="description"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    
+    <resultMap id="BaseResultMapVO" type="org.gaius.octopus.core.pojo.vo.DatasourceInterfaceVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="datasource_id" property="datasourceId"/>
+        <result column="description" property="description"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="datasource_name" property="datasourceName"/>
+        <result column="type" property="type"/>
+    </resultMap>
+    
+    <!--  查询接口列表，并且关联对应数据源名称和类型  -->
+    <select id="selectByPage" resultType="org.gaius.octopus.core.pojo.vo.DatasourceInterfaceVO">
+        SELECT
+        i.id,
+        i.name,
+        i.datasource_id,
+        i.description,
+        i.create_by,
+        i.create_time,
+        i.update_by,
+        i.update_time,
+        d.name as datasource_name,
+        d.type as type
+        FROM
+        datasource_interface i
+        LEFT JOIN datasource d ON i.datasource_id = d.id
+        <where>
+            <if test="query.name != null and query.name != ''">
+                AND i.name LIKE CONCAT('%', #{query.name}, '%')
+            </if>
+            <if test="query.datasourceId != null">
+                AND i.datasource_id = #{query.datasourceId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

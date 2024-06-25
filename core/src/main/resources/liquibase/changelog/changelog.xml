@@ -36,9 +36,6 @@
             </column>
             <column name="type" type="varchar(32)" remarks="类型"/>
             <column name="description" type="varchar(255)" remarks="描述"/>
-            <column name="plugin_name" type="varchar(64)" remarks="插件名称">
-                <constraints nullable="false"/>
-            </column>
             <column name="content" type="longtext" remarks="数据源内容">
                 <constraints nullable="false"/>
             </column>

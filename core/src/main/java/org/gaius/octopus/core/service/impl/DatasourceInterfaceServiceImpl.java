@@ -1,12 +1,9 @@
 package org.gaius.octopus.core.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.gaius.datasource.exception.DatasourceException;
 import org.gaius.octopus.common.utils.JacksonUtil;
 import org.gaius.octopus.core.execute.AbstractExecuteEngine;
@@ -23,7 +20,6 @@ import org.gaius.octopus.core.service.DatasourceService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.stream.Collectors;
 
 /**
  * @author zhaobo
@@ -104,24 +100,24 @@ public class DatasourceInterfaceServiceImpl extends ServiceImpl<DatasourceInterf
     @Override
     public Page<DatasourceInterfaceVO> pageByQuery(DatasourceInterfaceQuery query) {
         Page<DatasourceInterface> page = new Page<>(query.getCurrent(), query.getSize());
-        LambdaQueryWrapper<DatasourceInterface> lambdaQuery = Wrappers.lambdaQuery();
-        lambdaQuery.like(StringUtils.isNotEmpty(query.getName()), DatasourceInterface::getName, query.getName())
-                .eq(query.getDatasourceId() != null, DatasourceInterface::getDatasourceId, query.getDatasourceId());
-        Page<DatasourceInterface> datasourceInterfacePage = this.page(page, lambdaQuery);
-        Page<DatasourceInterfaceVO> voPage = new Page<>();
-        voPage.setTotal(datasourceInterfacePage.getTotal());
-        voPage.setCurrent(datasourceInterfacePage.getCurrent());
-        voPage.setSize(datasourceInterfacePage.getSize());
-        voPage.setRecords(datasourceInterfacePage.getRecords().stream().map(datasourceInterface -> {
-            DatasourceInterfaceVO vo = new DatasourceInterfaceVO();
-            vo.setId(datasourceInterface.getId());
-            vo.setName(datasourceInterface.getName());
-            vo.setDescription(datasourceInterface.getDescription());
-            vo.setDatasourceName(datasourceInterface.getName());
-            vo.setCreateTime(datasourceInterface.getCreateTime());
-            vo.setUpdateTime(datasourceInterface.getUpdateTime());
-            return vo;
-        }).collect(Collectors.toList()));
-        return voPage;
+        return this.baseMapper.selectByPage(page, query);
+    }
+    
+    @Override
+    public DatasourceInterfaceVO selectById(Long interfaceId) {
+        DatasourceInterface datasourceInterface = this.getById(interfaceId);
+        if (datasourceInterface != null) {
+            DatasourceInterfaceVO datasourceInterfaceVO = new DatasourceInterfaceVO();
+            datasourceInterfaceVO.setId(datasourceInterface.getId());
+            datasourceInterfaceVO.setName(datasourceInterface.getName());
+            datasourceInterfaceVO.setDescription(datasourceInterface.getDescription());
+            datasourceInterfaceVO.setContent(JacksonUtil.parseToTargetObject(datasourceInterface.getContent()));
+            datasourceInterfaceVO.setArgs(JacksonUtil.parseToTargetObject(datasourceInterface.getArgs()));
+            datasourceInterfaceVO.setDatasourceId(datasourceInterface.getDatasourceId());
+            datasourceInterfaceVO.setDatasourceName(
+                    datasourceService.selectById(datasourceInterface.getDatasourceId()).getName());
+            return datasourceInterfaceVO;
+        }
+        return null;
     }
 }

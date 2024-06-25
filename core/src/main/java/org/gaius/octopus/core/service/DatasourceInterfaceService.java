@@ -30,4 +30,6 @@ public interface DatasourceInterfaceService extends IService<DatasourceInterface
     boolean deleteById(DatasourceInterfaceDTO dto);
     
     Page<DatasourceInterfaceVO> pageByQuery(DatasourceInterfaceQuery query);
+    
+    DatasourceInterfaceVO selectById(Long interfaceId);
 }
