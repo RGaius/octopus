@@ -63,4 +63,12 @@ public interface InterfaceService extends IService<DatasourceInterface> {
      * @return
      */
     DatasourceInterfaceVO selectById(Long interfaceId);
+    
+    /**
+     * 根据数据源id查询
+     *
+     * @param datasourceId 数据源id
+     * @return
+     */
+    Long countByDatasourceId(Long datasourceId);
 }

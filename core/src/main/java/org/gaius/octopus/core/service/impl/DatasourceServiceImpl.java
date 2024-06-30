@@ -8,6 +8,7 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.gaius.datasource.Available;
+import org.gaius.octopus.common.exception.BaseException;
 import org.gaius.octopus.common.utils.JacksonUtil;
 import org.gaius.octopus.core.execute.AbstractExecuteEngine;
 import org.gaius.octopus.core.execute.ExecuteContext;
@@ -18,6 +19,7 @@ import org.gaius.octopus.core.pojo.entity.Datasource;
 import org.gaius.octopus.core.pojo.query.DatasourceQuery;
 import org.gaius.octopus.core.pojo.vo.DatasourceVO;
 import org.gaius.octopus.core.service.DatasourceService;
+import org.gaius.octopus.core.service.InterfaceService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -35,6 +37,9 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
     
     @Resource
     private AbstractExecuteEngine<DatasourceExecuteDTO> datasourceExecuteEngine;
+    
+    @Resource
+    private InterfaceService interfaceService;
     
     @Override
     public Available test(DatasourceDTO dto) throws Exception {
@@ -63,7 +68,10 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
     
     @Override
     public boolean save(DatasourceDTO dto) {
-        // todo 判断数据源名称是否重复
+        boolean isExist = isExists(dto.getName(), null);
+        if (isExist) {
+            throw new BaseException("名称重复");
+        }
         Datasource datasource = new Datasource();
         datasource.setName(dto.getName());
         datasource.setDescription(dto.getDescription());
@@ -75,9 +83,24 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
         return this.save(datasource);
     }
     
+    /**
+     * 判断名称是否重复
+     *
+     * @param name      名称
+     * @param excludeId 排除ID
+     * @return
+     */
+    private boolean isExists(String name, Long excludeId) {
+        return this.lambdaQuery().eq(Datasource::getName, name).ne(excludeId != null, Datasource::getId, excludeId)
+                .exists();
+    }
+    
     @Override
     public Boolean update(DatasourceDTO dto) {
-        // todo 判断数据源名称是否重复
+        boolean isExist = isExists(dto.getName(), dto.getId());
+        if (isExist) {
+            throw new BaseException("名称重复");
+        }
         Datasource datasource = new Datasource();
         datasource.setId(dto.getId());
         datasource.setName(dto.getName());
@@ -85,18 +108,31 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
         datasource.setType(dto.getType());
         datasource.setContent(JacksonUtil.writeObjectToString(dto.getContent()));
         datasource.setUpdateTime(new Date());
-        // todo 数据源更新后发送消息通知销毁对应数据源实例
-        return this.updateById(datasource);
+        boolean updateSuccessful = this.updateById(datasource);
+        if (updateSuccessful) {
+            destroy(dto);
+        }
+        return updateSuccessful;
+    }
+    
+    /**
+     * 销毁数据源
+     *
+     * @param dto 数据源
+     */
+    private void destroy(DatasourceDTO dto) {
+        ExecuteContext<DatasourceExecuteDTO> executeContext = new ExecuteContext<>();
+        executeContext.setContent(new DatasourceExecuteDTO(dto, null));
+        datasourceExecuteEngine.destroy(executeContext);
     }
     
     @Override
     public boolean deleteById(DatasourceDTO dto) {
-        // todo 判断数据源下是否有接口，若有接口，则不允许删除
-        if (this.removeById(dto.getId())) {
-            // todo 数据源删除后发送消息通知销毁对应数据源实例
-            return true;
+        Long count = interfaceService.countByDatasourceId(dto.getId());
+        if (count > 0) {
+            throw new BaseException("数据源下存在接口，不允许删除");
         }
-        return false;
+        return this.removeById(dto.getId());
     }
     
     @Override

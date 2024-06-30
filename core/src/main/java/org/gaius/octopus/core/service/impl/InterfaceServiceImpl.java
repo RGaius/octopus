@@ -1,10 +1,13 @@
 package org.gaius.octopus.core.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.gaius.datasource.exception.DatasourceException;
+import org.gaius.octopus.common.exception.BaseException;
 import org.gaius.octopus.common.utils.JacksonUtil;
 import org.gaius.octopus.core.execute.AbstractExecuteEngine;
 import org.gaius.octopus.core.execute.ExecuteContext;
@@ -56,7 +59,10 @@ public class InterfaceServiceImpl extends ServiceImpl<DatasourceInterfaceMapper,
     public boolean save(DatasourceInterfaceDTO dto) {
         // 校验数据源是否存在
         if (datasourceService.selectById(dto.getDatasourceId()) == null) {
-            return false;
+            throw new BaseException("数据源不存在");
+        }
+        if (isExists(dto.getName(), null)) {
+            throw new BaseException("名称已存在");
         }
         DatasourceInterface datasourceInterface = new DatasourceInterface();
         datasourceInterface.setName(dto.getName());
@@ -73,7 +79,10 @@ public class InterfaceServiceImpl extends ServiceImpl<DatasourceInterfaceMapper,
     @Override
     public boolean update(DatasourceInterfaceDTO dto) {
         if (datasourceService.selectById(dto.getDatasourceId()) != null) {
-            return false;
+            throw new BaseException("数据源不存在");
+        }
+        if (isExists(dto.getName(), dto.getId())) {
+            throw new BaseException("名称已存在");
         }
         DatasourceInterface datasourceInterface = new DatasourceInterface();
         datasourceInterface.setId(dto.getId());
@@ -87,14 +96,21 @@ public class InterfaceServiceImpl extends ServiceImpl<DatasourceInterfaceMapper,
         return this.updateById(datasourceInterface);
     }
     
+    /**
+     * 判断名称是否重复
+     *
+     * @param name      名称
+     * @param excludeId 排除ID
+     * @return
+     */
+    private boolean isExists(String name, Long excludeId) {
+        return this.lambdaQuery().eq(DatasourceInterface::getName, name)
+                .ne(excludeId != null, DatasourceInterface::getId, excludeId).exists();
+    }
+    
     @Override
     public boolean deleteById(DatasourceInterfaceDTO dto) {
-        // todo 判断数据源下是否有接口，若有接口，则不允许删除
-        if (this.removeById(dto.getId())) {
-            // todo 数据源删除后发送消息通知销毁对应数据源实例
-            return true;
-        }
-        return false;
+        return this.removeById(dto.getId());
     }
     
     @Override
@@ -119,5 +135,12 @@ public class InterfaceServiceImpl extends ServiceImpl<DatasourceInterfaceMapper,
             return datasourceInterfaceVO;
         }
         return null;
+    }
+    
+    @Override
+    public Long countByDatasourceId(Long datasourceId) {
+        LambdaQueryWrapper<DatasourceInterface> lambdaQuery = Wrappers.lambdaQuery();
+        lambdaQuery.eq(DatasourceInterface::getDatasourceId, datasourceId);
+        return this.count(lambdaQuery);
     }
 }

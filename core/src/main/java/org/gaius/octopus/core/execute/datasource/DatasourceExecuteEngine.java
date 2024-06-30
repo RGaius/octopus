@@ -83,7 +83,6 @@ public class DatasourceExecuteEngine extends AbstractExecuteEngine<DatasourceExe
             DatasourceInstance<Object> instance = getInstance(executeDTO.getDatasource());
             InvokeContext invokeContext = InvokeContext.builder().serviceContext(buildServiceContext())
                     .interfaceInfo(executeDTO.getInterfaceInfo()).args(context.getArgs()).build();
-            
             Object result = instance.invoke(invokeContext);
             return InterfaceResponseVO.success(result);
         } catch (Exception e) {
