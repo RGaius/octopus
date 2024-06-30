@@ -50,7 +50,7 @@ public class JdbcDatasourceInstance implements DatasourceInstance<Object> {
     /**
      * 数据源
      */
-    private final DataSource dataSource;
+    private DataSource dataSource;
     
     /**
      * 测试连接成功
@@ -59,7 +59,12 @@ public class JdbcDatasourceInstance implements DatasourceInstance<Object> {
     
     public JdbcDatasourceInstance(DatasourceProperties properties) {
         this.properties = properties;
-        this.dataSource = init(properties);
+    }
+    
+    @Override
+    public DatasourceInstance<Object> init() {
+        this.dataSource = initDatasource(properties);
+        return this;
     }
     
     /**
@@ -68,7 +73,7 @@ public class JdbcDatasourceInstance implements DatasourceInstance<Object> {
      * @param config 配置
      * @return
      */
-    private DataSource init(DatasourceProperties config) {
+    private DataSource initDatasource(DatasourceProperties config) {
         Map<String, Object> content = config.getContent();
         Boolean pool = MapUtils.getBoolean(content, "pool", false);
         // 若当前数据源实例开启连接池，则使用HikariCP连接池
@@ -283,5 +288,6 @@ public class JdbcDatasourceInstance implements DatasourceInstance<Object> {
         if (dataSource instanceof HikariDataSource) {
             ((HikariDataSource) dataSource).close();
         }
+        dataSource = null;
     }
 }

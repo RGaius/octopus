@@ -15,6 +15,7 @@ import org.gaius.octopus.common.middle.CryptoService;
 import org.gaius.octopus.core.execute.AbstractExecuteEngine;
 import org.gaius.octopus.core.execute.ExecuteContext;
 import org.gaius.octopus.core.pojo.dto.DatasourceDTO;
+import org.gaius.octopus.core.pojo.vo.InterfaceResponseVO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -69,19 +70,26 @@ public class DatasourceExecuteEngine extends AbstractExecuteEngine<DatasourceExe
         if (factory != null) {
             DatasourceProperties properties = DatasourceProperties.builder().datasourceName(dto.getName())
                     .datasourceId(dto.getId()).content(dto.getContent()).build();
-            return factory.create(properties);
+            return factory.create(properties).init();
         }
         log.error("Plugin:{} not found", pluginType);
         throw new PluginException("插件：【" + pluginType + "】未找到");
     }
     
     @Override
-    public Object invoke(ExecuteContext<DatasourceExecuteDTO> context) throws Exception {
-        DatasourceExecuteDTO executeDTO = context.getContent();
-        DatasourceInstance<Object> instance = getInstance(executeDTO.getDatasource());
-        InvokeContext invokeContext = InvokeContext.builder().serviceContext(buildServiceContext())
-                .interfaceInfo(executeDTO.getInterfaceInfo()).args(context.getArgs()).build();
-        return instance.invoke(invokeContext);
+    public InterfaceResponseVO invoke(ExecuteContext<DatasourceExecuteDTO> context) {
+        try {
+            DatasourceExecuteDTO executeDTO = context.getContent();
+            DatasourceInstance<Object> instance = getInstance(executeDTO.getDatasource());
+            InvokeContext invokeContext = InvokeContext.builder().serviceContext(buildServiceContext())
+                    .interfaceInfo(executeDTO.getInterfaceInfo()).args(context.getArgs()).build();
+            
+            Object result = instance.invoke(invokeContext);
+            return InterfaceResponseVO.success(result);
+        } catch (Exception e) {
+            log.error("invoke error", e);
+            return InterfaceResponseVO.fail(e.getMessage());
+        }
     }
     
     @Override

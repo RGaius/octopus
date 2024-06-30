@@ -15,8 +15,8 @@ import org.gaius.octopus.core.pojo.dto.DatasourceInterfaceDTO;
 import org.gaius.octopus.core.pojo.entity.DatasourceInterface;
 import org.gaius.octopus.core.pojo.query.DatasourceInterfaceQuery;
 import org.gaius.octopus.core.pojo.vo.DatasourceInterfaceVO;
-import org.gaius.octopus.core.service.InterfaceService;
 import org.gaius.octopus.core.service.DatasourceService;
+import org.gaius.octopus.core.service.InterfaceService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;

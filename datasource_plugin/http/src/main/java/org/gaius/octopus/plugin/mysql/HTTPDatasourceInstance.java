@@ -64,12 +64,12 @@ public class HTTPDatasourceInstance implements DatasourceInstance<Object> {
     /**
      * http客户端
      */
-    private final OkHttpClient client;
+    private OkHttpClient client;
     
     /**
      * 自定义认证对象
      */
-    private final CustomAuthentication customAuthentication;
+    private CustomAuthentication customAuthentication;
     
     /**
      * 测试连接成功
@@ -78,10 +78,14 @@ public class HTTPDatasourceInstance implements DatasourceInstance<Object> {
     
     public HTTPDatasourceInstance(DatasourceProperties properties) {
         this.properties = properties;
-        this.client = init(properties);
-        this.customAuthentication = new CustomAuthentication(this.client, properties);
     }
     
+    @Override
+    public DatasourceInstance<Object> init() {
+        this.client = initClient(properties);
+        this.customAuthentication = new CustomAuthentication(this.client, properties);
+        return this;
+    }
     
     /**
      * 初始化http客户端
@@ -89,7 +93,7 @@ public class HTTPDatasourceInstance implements DatasourceInstance<Object> {
      * @param properties 数据源连接参数
      * @return
      */
-    private OkHttpClient init(DatasourceProperties properties) {
+    private OkHttpClient initClient(DatasourceProperties properties) {
         log.info("初始化http数据源");
         Map<String, Object> content = properties.getContent();
         long timeout = MapUtils.getLongValue(content, HTTPConstant.TIMEOUT, HTTPConstant.DEFAULT_TIMEOUT);
@@ -246,6 +250,8 @@ public class HTTPDatasourceInstance implements DatasourceInstance<Object> {
         client.dispatcher().executorService().shutdown();
         client.connectionPool().evictAll();
         client.dispatcher().cancelAll();
+        client = null;
+        customAuthentication = null;
     }
     
     /**

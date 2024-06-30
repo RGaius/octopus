@@ -38,9 +38,13 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
     
     @Override
     public Available test(DatasourceDTO dto) throws Exception {
-        ExecuteContext<DatasourceExecuteDTO> executeContext = new ExecuteContext<>();
-        executeContext.setContent(new DatasourceExecuteDTO(dto, null));
-        return datasourceExecuteEngine.validate(executeContext);
+        try {
+            ExecuteContext<DatasourceExecuteDTO> executeContext = new ExecuteContext<>();
+            executeContext.setContent(new DatasourceExecuteDTO(dto, null));
+            return datasourceExecuteEngine.validate(executeContext);
+        } catch (Exception e) {
+            return Available.builder().available(false).message(e.getMessage()).build();
+        }
     }
     
     @Override

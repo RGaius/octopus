@@ -27,4 +27,12 @@ public class Available {
      * 信息；可用时看返回数据源信息；不可用时看返回错误信息
      */
     private String message;
+    
+    public static Available available(String message) {
+        return Available.builder().available(true).message(message).build();
+    }
+    
+    public static Available unavailable(String message) {
+        return Available.builder().available(false).message(message).build();
+    }
 }

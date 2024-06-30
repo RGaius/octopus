@@ -13,6 +13,11 @@ import java.io.IOException;
 public interface DatasourceInstance<R> {
     
     /**
+     * 数据库实例初始化
+     */
+    DatasourceInstance<R> init();
+    
+    /**
      * 数据源是否可用
      *
      * @param context 服务上下文
