@@ -33,6 +33,7 @@ public class DefaultDatasourcePluginService implements DatasourcePluginService<D
      * @param name 数据源名称
      * @return
      */
+    @Override
     public DatasourceFactory<DatasourceInstance<Object>, Object> getFactory(String name) {
         return datasourceFactoryMap.get(name);
     }

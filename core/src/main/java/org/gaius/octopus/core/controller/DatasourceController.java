@@ -9,6 +9,7 @@ import org.gaius.octopus.core.pojo.entity.Datasource;
 import org.gaius.octopus.core.pojo.query.DatasourceQuery;
 import org.gaius.octopus.core.pojo.vo.DatasourceVO;
 import org.gaius.octopus.core.service.DatasourceService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,25 +45,33 @@ public class DatasourceController {
     
     /**
      * 获取数据源详情
+     *
+     * @param id 数据源ID
      */
-    @GetMapping("/{datasourceId}")
-    public Result<DatasourceDTO> detail(@PathVariable Long datasourceId) {
-        return Result.success(datasourceService.selectById(datasourceId));
+    @GetMapping("/{id}")
+    public Result<DatasourceDTO> detail(@PathVariable Long id) {
+        return Result.success(datasourceService.selectById(id));
     }
     
     /**
      * 新增数据源
+     *
+     * @param dto 数据集
      */
     @PostMapping("save")
-    public Result<Boolean> add(@RequestBody DatasourceDTO dto) {
+    public Result<Boolean> add(@Validated @RequestBody DatasourceDTO dto) {
         return Result.success(datasourceService.save(dto));
     }
     
     /**
      * 更新数据源
+     *
+     * @param dto 数据集
+     * @param id  数据源ID
      */
-    @PostMapping("update")
-    public Result<Boolean> update(@RequestBody DatasourceDTO dto) {
+    @PostMapping("/{id}/update")
+    public Result<Boolean> update(@PathVariable Long id, @Validated @RequestBody DatasourceDTO dto) {
+        dto.setId(id);
         return Result.success(datasourceService.update(dto));
     }
     
@@ -77,13 +86,18 @@ public class DatasourceController {
     /**
      * 数据源分页查询
      *
-     * @param query
+     * @param query 查询参数
      */
     @GetMapping("page")
     public Result<Page<DatasourceVO>> page(DatasourceQuery query) {
         return Result.success(datasourceService.pageByQuery(query));
     }
     
+    /**
+     * 获取数据源列表
+     *
+     * @return
+     */
     @GetMapping("list")
     public Result<List<Datasource>> list() {
         return Result.success(datasourceService.list());

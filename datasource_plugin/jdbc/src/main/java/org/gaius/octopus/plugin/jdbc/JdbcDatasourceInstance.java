@@ -129,7 +129,7 @@ public class JdbcDatasourceInstance implements DatasourceInstance<Object> {
         // 获取最大连接数,默认10
         Integer maxPoolSize = MapUtils.getInteger(advanced, "maxPoolSize", 10);
         config.setMaximumPoolSize(maxPoolSize);
-        log.info("初始化PostgreSQL数据源, url:{}, user:{}, password:******, advanced:{}", url, user, advanced);
+        log.info("初始化数据源, url:{}, user:{}, password:******, advanced:{}", url, user, advanced);
         return new HikariDataSource(config);
     }
     
@@ -233,6 +233,9 @@ public class JdbcDatasourceInstance implements DatasourceInstance<Object> {
         } catch (ClassNotFoundException e) {
             log.error("驱动加载失败", e);
             throw new DatasourceException(e);
+        } catch (Exception unknown) {
+            log.error("未知异常", unknown);
+            throw new DatasourceException(unknown);
         } finally {
             started.stop();
             log.info("sql任务执行结束,总耗时:{}ms", started.getTime(TimeUnit.MILLISECONDS));

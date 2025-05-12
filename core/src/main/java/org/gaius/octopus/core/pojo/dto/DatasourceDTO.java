@@ -1,5 +1,6 @@
 package org.gaius.octopus.core.pojo.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.Map;
@@ -16,6 +17,7 @@ public class DatasourceDTO {
     /**
      * 数据源ID
      */
+    @JsonIgnore
     private Long id;
     
     /**
