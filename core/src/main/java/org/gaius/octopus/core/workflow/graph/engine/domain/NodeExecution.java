@@ -1,4 +1,4 @@
-package org.gaius.octopus.core.workflow.engine.domain;
+package org.gaius.octopus.core.workflow.graph.engine.domain;
 
 import lombok.Data;
 import org.gaius.octopus.core.workflow.enums.NodeStateEnum;

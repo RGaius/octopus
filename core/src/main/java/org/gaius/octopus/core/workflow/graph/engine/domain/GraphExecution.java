@@ -1,7 +1,9 @@
-package org.gaius.octopus.core.workflow.engine.domain;
+package org.gaius.octopus.core.workflow.graph.engine.domain;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -11,6 +13,7 @@ import java.util.Map;
  * @date 2025/10/9
  */
 @Slf4j
+@Getter
 public class GraphExecution {
     
     /**
@@ -42,6 +45,20 @@ public class GraphExecution {
      * 节点执行详情
      */
     private Map<String, NodeExecution> nodeExecutions;
+    
+    /**
+     * 构造函数
+     *
+     * @param workflowId 工作流ID
+     */
+    public GraphExecution(String workflowId) {
+        this.workflowId = workflowId;
+        this.nodeExecutions = new HashMap<>();
+        this.started = false;
+        this.completed = false;
+        this.aborted = false;
+        this.errorMsg = null;
+    }
     
     /**
      * 开始

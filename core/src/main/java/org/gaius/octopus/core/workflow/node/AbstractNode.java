@@ -1,5 +1,8 @@
 package org.gaius.octopus.core.workflow.node;
 
+import org.gaius.octopus.core.workflow.graph.events.GraphNodeEventBase;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,4 +35,8 @@ public abstract class AbstractNode {
      * </p>
      */
     public abstract void init();
+    
+    public List<GraphNodeEventBase> run() {
+        return null;
+    }
 }

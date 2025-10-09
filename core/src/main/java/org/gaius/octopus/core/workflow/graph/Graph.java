@@ -94,6 +94,8 @@ public class Graph {
     
     /**
      * 获取源节点父节点列表
+     *
+     * @param sourceNodeId 源节点ID
      */
     public List<String> getIncomingEdges(String sourceNodeId) {
         return directedGraph.incomingEdgesOf(sourceNodeId).stream().map(directedGraph::getEdgeSource).toList();
