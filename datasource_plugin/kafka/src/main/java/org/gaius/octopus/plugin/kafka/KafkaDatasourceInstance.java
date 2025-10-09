@@ -65,10 +65,9 @@ public class KafkaDatasourceInstance implements DatasourceInstance<Object> {
     
     @Override
     public Available available(ServiceContext context) {
-        try {
-            // 基于数据源配置，
-            Map<String, Object> content = properties.getContent();
-            KafkaAdminClient client = (KafkaAdminClient) KafkaAdminClient.create(content);
+        // 基于数据源配置，
+        Map<String, Object> content = properties.getContent();
+        try (KafkaAdminClient client = (KafkaAdminClient) KafkaAdminClient.create(content)) {
             // 测试连接
             DescribeClusterResult clusterResult = client.describeCluster();
             return Available.available(String.format(SUCCESS_TEMPLATE, properties.getDatasourceName(),

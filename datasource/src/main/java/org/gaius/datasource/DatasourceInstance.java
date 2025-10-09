@@ -13,7 +13,7 @@ import java.io.IOException;
 public interface DatasourceInstance<R> {
     
     /**
-     * 数据库实例初始化
+     * 数据源实例初始化
      */
     DatasourceInstance<R> init();
     

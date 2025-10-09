@@ -1,0 +1,261 @@
+{
+  "nodes": [
+    {
+      "id": "1742285590906",
+      "type": "custom",
+      "data": {
+        "type": "start",
+        "title": "\u5f00\u59cb",
+        "desc": "",
+        "variables": [],
+        "selected": false
+      },
+      "position": {
+        "x": 30,
+        "y": 251.5
+      },
+      "targetPosition": "left",
+      "sourcePosition": "right",
+      "positionAbsolute": {
+        "x": 30,
+        "y": 251.5
+      },
+      "width": 244,
+      "height": 54,
+      "selected": false
+    },
+    {
+      "id": "1742290720468",
+      "type": "custom",
+      "data": {
+        "type": "knowledge-retrieval",
+        "title": "\u77e5\u8bc6\u68c0\u7d22",
+        "desc": "",
+        "query_variable_selector": [
+          "1742287262362",
+          "table_name"
+        ],
+        "dataset_ids": [
+          "cc052a98-1e67-44f3-abf7-b344638347e0",
+          "5a8d4873-6bbc-45d2-b68f-f2e512da5453"
+        ],
+        "retrieval_mode": "multiple",
+        "multiple_retrieval_config": {
+          "top_k": 4,
+          "reranking_mode": "reranking_model",
+          "reranking_model": {
+            "provider": "langgenius/tongyi/tongyi",
+            "model": "gte-rerank"
+          },
+          "reranking_enable": true
+        },
+        "selected": false
+      },
+      "position": {
+        "x": 636.8007797829027,
+        "y": 251.5
+      },
+      "targetPosition": "left",
+      "sourcePosition": "right",
+      "positionAbsolute": {
+        "x": 636.8007797829027,
+        "y": 251.5
+      },
+      "width": 244,
+      "height": 92,
+      "selected": false
+    },
+    {
+      "id": "1742287262362",
+      "type": "custom",
+      "data": {
+        "type": "parameter-extractor",
+        "title": "\u53c2\u6570\u63d0\u53d6\u5668",
+        "desc": "",
+        "variables": [],
+        "query": [
+          "sys",
+          "query"
+        ],
+        "model": {
+          "provider": "langgenius/tongyi/tongyi",
+          "name": "qwen-turbo-latest",
+          "mode": "chat",
+          "completion_params": {
+            "temperature": 0.7
+          }
+        },
+        "reasoning_mode": "prompt",
+        "vision": {
+          "enabled": false
+        },
+        "selected": false,
+        "parameters": [
+          {
+            "name": "chart_type",
+            "type": "string",
+            "description": "\u6570\u636e\u56fe\u8868\u7c7b\u578b",
+            "required": false
+          },
+          {
+            "name": "table_name",
+            "type": "string",
+            "description": "\u5f53\u524d\u8bed\u53e5\u662f\u4e00\u6bb5\u751f\u6210SQL\u7684\u63cf\u8ff0\uff0c\u8bf7\u4ece\u5f53\u524d\u6587\u672c\u4e2d\u63d0\u53d6\u51fa\u76ee\u6807\u6570\u636e\u8868\u5e76\u4e14\u4ee5\u7a7a\u683c\u5206\u9694",
+            "required": false
+          }
+        ],
+        "instruction": "\u4f60\u64c5\u957f\u6570\u636e\u5206\u6790\uff0c\u8fd9\u662f\u4e00\u6bb5\u7edf\u8ba1\u6570\u636e\u7684\u63cf\u8ff0\u4fe1\u606f\uff0c\u5f53\u524d\u9700\u8981\u4ece\u63cf\u8ff0\u4fe1\u606f\u4e2d\u63d0\u53d6\u9700\u8981\u751f\u6210\u7684\u56fe\u8868\u7c7b\u578b\u548c\u67e5\u8be2\u6570\u636e\u8868\u540d\u79f0\u3002"
+      },
+      "position": {
+        "x": 335.5878298542767,
+        "y": 251.5
+      },
+      "targetPosition": "left",
+      "sourcePosition": "right",
+      "positionAbsolute": {
+        "x": 335.5878298542767,
+        "y": 251.5
+      },
+      "width": 244,
+      "height": 90,
+      "selected": false
+    },
+    {
+      "id": "1742288079189",
+      "type": "custom",
+      "data": {
+        "type": "llm",
+        "title": "LLM",
+        "desc": "",
+        "variables": [],
+        "model": {
+          "provider": "langgenius/tongyi/tongyi",
+          "name": "qwen-turbo-latest",
+          "mode": "chat",
+          "completion_params": {
+            "temperature": 0.7
+          }
+        },
+        "prompt_template": [
+          {
+            "role": "system",
+            "text": "\u4f60\u662f\u4e00\u4e2a\u975e\u5e38\u64c5\u957f\u6570\u636e\u5206\u6790\uff0c\u53ef\u4ee5\u57fa\u4e8e\u6570\u636e\u5e93\u8868\u4fe1\u606f\u4e0e\u81ea\u7136\u8bed\u8a00\u63cf\u8ff0\uff0c\u751f\u6210\u7edf\u8ba1SQL\u8bed\u53e5\uff1b\u76f4\u63a5\u751f\u6210SQL\u8bed\u53e5\u3002\u5f53\u524d\u6570\u636e\u5e93\u7c7b\u578b\u4e3aPostgresql\uff0c\u6570\u636e\u5e93\u8868\u4fe1\u606f\u5982\uff1a{{#context#}};{{#sys.query#}}",
+            "id": "1987aaf0-53aa-4cba-8d02-a79b1b91b775"
+          }
+        ],
+        "context": {
+          "enabled": true,
+          "variable_selector": [
+            "1742290720468",
+            "result"
+          ]
+        },
+        "vision": {
+          "enabled": false
+        },
+        "selected": true
+      },
+      "position": {
+        "x": 943.4789498912021,
+        "y": 251.5
+      },
+      "targetPosition": "left",
+      "sourcePosition": "right",
+      "positionAbsolute": {
+        "x": 943.4789498912021,
+        "y": 251.5
+      },
+      "width": 244,
+      "height": 90,
+      "selected": true
+    },
+    {
+      "id": "1742288286715",
+      "type": "custom",
+      "data": {
+        "type": "answer",
+        "title": "\u76f4\u63a5\u56de\u590d 3",
+        "desc": "",
+        "variables": [],
+        "answer": "\u5f53\u524dsql\u8bed\u53e5\u4e3a\uff1a\n{{#1742288079189.text#}}",
+        "selected": false
+      },
+      "position": {
+        "x": 1246,
+        "y": 251.5
+      },
+      "targetPosition": "left",
+      "sourcePosition": "right",
+      "positionAbsolute": {
+        "x": 1246,
+        "y": 251.5
+      },
+      "width": 244,
+      "height": 103,
+      "selected": false
+    }
+  ],
+  "edges": [
+    {
+      "id": "1742288079189--1742288286715-target",
+      "type": "custom",
+      "source": "1742288079189",
+      "sourceHandle": "source",
+      "target": "1742288286715",
+      "targetHandle": "target",
+      "data": {
+        "sourceType": "llm",
+        "targetType": "answer",
+        "isInIteration": false
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "1742285590906-source-1742287262362-target",
+      "type": "custom",
+      "source": "1742285590906",
+      "target": "1742287262362",
+      "sourceHandle": "source",
+      "targetHandle": "target",
+      "data": {
+        "sourceType": "start",
+        "targetType": "parameter-extractor",
+        "isInIteration": false
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "1742287262362-source-1742290720468-target",
+      "type": "custom",
+      "source": "1742287262362",
+      "target": "1742290720468",
+      "sourceHandle": "source",
+      "targetHandle": "target",
+      "data": {
+        "sourceType": "parameter-extractor",
+        "targetType": "knowledge-retrieval",
+        "isInIteration": false
+      },
+      "zIndex": 0
+    },
+    {
+      "id": "1742290720468-source-1742288079189-target",
+      "type": "custom",
+      "source": "1742290720468",
+      "target": "1742288079189",
+      "sourceHandle": "source",
+      "targetHandle": "target",
+      "data": {
+        "sourceType": "knowledge-retrieval",
+        "targetType": "llm",
+        "isInIteration": false
+      },
+      "zIndex": 0
+    }
+  ],
+  "viewport": {
+    "x": -704.2720683929119,
+    "y": 204.35044613329774,
+    "zoom": 0.9276219649302366
+  }
+}
