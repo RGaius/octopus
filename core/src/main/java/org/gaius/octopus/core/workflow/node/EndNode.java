@@ -18,4 +18,9 @@ public class EndNode extends AbstractNode {
     public void init() {
     
     }
+    
+    @Override
+    protected String getErrorStrategy() {
+        return "";
+    }
 }

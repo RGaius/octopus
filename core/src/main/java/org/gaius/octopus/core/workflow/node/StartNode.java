@@ -18,4 +18,9 @@ public class StartNode extends AbstractNode {
     public void init() {
     
     }
+    
+    @Override
+    protected String getErrorStrategy() {
+        return "";
+    }
 }
