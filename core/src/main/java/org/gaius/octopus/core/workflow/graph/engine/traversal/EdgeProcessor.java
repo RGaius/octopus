@@ -58,7 +58,7 @@ public class EdgeProcessor {
     }
     
     /**
-     * 处理非分支节点
+     * 处理无分支节点
      *
      * @param nodeId 节点ID
      * @return
@@ -119,10 +119,10 @@ public class EdgeProcessor {
     /**
      * 处理跳过边
      *
-     * @param unselectedEdge 跳过的边
+     * @param edge 跳过的边
      */
-    private void processSkippedEdge(Edge unselectedEdge) {
-    
+    private void processSkippedEdge(Edge edge) {
+        this.stateManager.markEdgeSkipped(edge.getId());
     }
     
     /**
