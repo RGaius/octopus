@@ -1,5 +1,8 @@
 package org.gaius.octopus.core.workflow.node;
 
+import org.gaius.octopus.core.workflow.graph.events.GraphNodeEventBase;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,6 +20,11 @@ public class CodeNode extends AbstractNode {
     @Override
     public void init() {
     
+    }
+    
+    @Override
+    public List<GraphNodeEventBase> run() {
+        return List.of();
     }
     
     @Override

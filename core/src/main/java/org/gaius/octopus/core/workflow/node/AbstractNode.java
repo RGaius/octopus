@@ -62,9 +62,12 @@ public abstract class AbstractNode {
      */
     public abstract void init();
     
-    public List<GraphNodeEventBase> run() {
-        return null;
-    }
+    /**
+     * 节点运行
+     *
+     * @return 节点运行结果
+     */
+    public abstract List<GraphNodeEventBase> run();
     
     /**
      * 获取错误策略

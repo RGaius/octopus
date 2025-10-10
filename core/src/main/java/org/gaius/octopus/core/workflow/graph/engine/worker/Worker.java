@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
+ * 工作者
+ *
  * @author zhaobo
- * @program octopus
- * @description 工作者
  * @date 2025/10/9
  */
 @Slf4j
@@ -47,7 +47,7 @@ public class Worker implements Runnable {
             List<GraphNodeEventBase> eventBases = node.run();
             for (GraphNodeEventBase eventBase : eventBases) {
                 // 添加事件
-                eventQueue.put(eventBase);
+                this.eventQueue.put(eventBase);
             }
         } catch (InterruptedException e) {
             log.error("worker interrupted", e);
