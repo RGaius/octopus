@@ -1,4 +1,4 @@
-package org.gaius.octopus.core.workflow.engine.domain;
+package org.gaius.octopus.core.workflow.graph.engine.domain;
 
 import lombok.Data;
 import org.gaius.octopus.core.workflow.enums.NodeStateEnum;
@@ -49,7 +49,7 @@ public class NodeExecution {
      *
      * @param executionId 执行ID
      */
-    public void markStart(String executionId) {
+    public void markStarted(String executionId) {
         this.state = NodeStateEnum.TAKEN;
         this.executionId = executionId;
     }
@@ -79,7 +79,7 @@ public class NodeExecution {
     /**
      * 增加重试
      */
-    public void addRetry() {
+    public void incrementRetry() {
         this.retryCount++;
     }
 }

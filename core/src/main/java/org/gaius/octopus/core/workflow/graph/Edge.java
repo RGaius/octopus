@@ -41,7 +41,7 @@ public class Edge extends DefaultEdge {
      * 默认未知状态
      * </p>
      */
-    private NodeStateEnum status = NodeStateEnum.UNKNOWN;
+    private NodeStateEnum state = NodeStateEnum.UNKNOWN;
     
     public Edge() {
     }

@@ -10,6 +10,7 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -27,6 +28,12 @@ public class Graph {
     private Map<String, AbstractNode> nodes;
     
     /**
+     * 边
+     */
+    @Getter
+    private Map<String, Edge> edges;
+    
+    /**
      * 图
      */
     @Getter
@@ -36,10 +43,11 @@ public class Graph {
      * 开始节点ID
      */
     @Getter
-    private String startNodeId;
+    private AbstractNode startNode;
     
     public Graph() {
         this.nodes = new HashMap<>();
+        this.edges = new HashMap<>();
         this.directedGraph = new DefaultDirectedGraph<>(null, Edge::new, false);
     }
     
@@ -67,17 +75,19 @@ public class Graph {
             directedGraph.addVertex(nodeId);
             AbstractNode nodeInstance = NodeFactory.createNode(nodeConfig);
             if (nodeInstance instanceof StartNode) {
-                graph.startNodeId = nodeId;
+                graph.startNode = nodeInstance;
             }
             graph.nodes.put(nodeId, nodeInstance);
         });
         
-        AtomicInteger edgeId = new AtomicInteger(0);
+        AtomicInteger edgeCount = new AtomicInteger(0);
         edges.forEach(edgeConfig -> {
             String source = MapUtils.getString(edgeConfig, "source");
             String target = MapUtils.getString(edgeConfig, "target");
             Edge edge = directedGraph.addEdge(source, target);
-            edge.setId("edge_%d".formatted(edgeId.getAndIncrement()));
+            String edgeId = "edge_%d".formatted(edgeCount.getAndIncrement());
+            edge.setId(edgeId);
+            graph.edges.put(edgeId, edge);
         });
         return graph;
     }
@@ -88,15 +98,17 @@ public class Graph {
      *
      * @param targetNodeId 目标节点ID
      */
-    public List<String> getOutgoingEdges(String targetNodeId) {
-        return directedGraph.outgoingEdgesOf(targetNodeId).stream().map(directedGraph::getEdgeTarget).toList();
+    public Set<Edge> getOutgoingEdges(String targetNodeId) {
+        return directedGraph.outgoingEdgesOf(targetNodeId);
     }
     
     /**
      * 获取源节点父节点列表
+     *
+     * @param sourceNodeId 源节点ID
      */
-    public List<String> getIncomingEdges(String sourceNodeId) {
-        return directedGraph.incomingEdgesOf(sourceNodeId).stream().map(directedGraph::getEdgeSource).toList();
+    public Set<Edge> getIncomingEdges(String sourceNodeId) {
+        return directedGraph.incomingEdgesOf(sourceNodeId);
     }
     
 }

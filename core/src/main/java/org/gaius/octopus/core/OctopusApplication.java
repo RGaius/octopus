@@ -9,10 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("org.gaius.octopus.core.mapper")
-public class CoreApplication {
+public class OctopusApplication {
     
     public static void main(String[] args) {
-        SpringApplication.run(CoreApplication.class, args);
+        SpringApplication.run(OctopusApplication.class, args);
     }
     
 }
