@@ -5,7 +5,7 @@ import org.gaius.octopus.core.workflow.graph.Graph;
 import org.gaius.octopus.core.workflow.graph.engine.domain.GraphExecution;
 import org.gaius.octopus.core.workflow.graph.engine.event.EventHandler;
 import org.gaius.octopus.core.workflow.graph.engine.event.EventManager;
-import org.gaius.octopus.core.workflow.graph.engine.orchestration.Dispatcher;
+import org.gaius.octopus.core.workflow.graph.engine.orchestration.EventDispatcher;
 import org.gaius.octopus.core.workflow.graph.engine.orchestration.ExecutionCoordinator;
 import org.gaius.octopus.core.workflow.graph.engine.traversal.EdgeProcessor;
 import org.gaius.octopus.core.workflow.graph.engine.traversal.SkipPropagator;
@@ -91,7 +91,7 @@ public class GraphEngine {
     /**
      * 分发器
      */
-    private final Dispatcher dispatcher;
+    private final EventDispatcher eventDispatcher;
     
     /**
      * 初始化
@@ -118,7 +118,7 @@ public class GraphEngine {
         this.workerPool = new WorkerPool(this.readyQueue, this.eventQueue, this.graph);
         this.executionCoordinator = new ExecutionCoordinator(this.graphExecution, this.stateManager, this.eventHandler,
                 eventManager, this.workerPool);
-        this.dispatcher = new Dispatcher(this.eventQueue, this.eventHandler, this.executionCoordinator,
+        this.eventDispatcher = new EventDispatcher(this.eventQueue, this.eventHandler, this.executionCoordinator,
                 this.eventManager);
     }
     
@@ -127,7 +127,8 @@ public class GraphEngine {
      * 运行
      */
     public void run() {
-        graphExecution.start();
+        // 开始执行
+        this.graphExecution.start();
         // 创建图开始运行事件
         this.startExecution();
     }
@@ -136,11 +137,16 @@ public class GraphEngine {
      * 开始执行
      */
     public void startExecution() {
+        // 开始工作池
         this.workerPool.start();
+        // 获取开始节点
         AbstractNode startNode = this.graph.getStartNode();
         String nodeId = startNode.getId();
+        // 添加到运行队列
         this.stateManager.enqueueNode(nodeId);
+        // 启动执行
         this.stateManager.startExecution(nodeId);
-        this.dispatcher.start();
+        // 启动分发器
+        this.eventDispatcher.start();
     }
 }

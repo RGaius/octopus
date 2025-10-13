@@ -10,6 +10,9 @@ import java.util.concurrent.Executors;
 
 /**
  * 工作池
+ * <p>
+ * 持续监听准备就绪队列，并提交任务到执行器中
+ * </p>
  *
  * @author zhaobo
  * @date 2025/10/9
@@ -54,6 +57,9 @@ public class WorkerPool {
     
     /**
      * 启动
+     * <p>
+     * 从准备就绪队列中获取节点ID，并提交任务到执行器中
+     * </p>
      */
     public void start() {
         // 使用单线程监听准备就绪队列

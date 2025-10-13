@@ -8,6 +8,7 @@ import groovy.lang.Script;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
@@ -80,7 +81,7 @@ public class GroovyExecuteEngine extends AbstractExecuteEngine<String> {
      */
     private static void initCompilerConfiguration() {
         CompilerConfiguration config = new CompilerConfiguration();
-        config.setTargetBytecode(CompilerConfiguration.JDK8);
+        config.setTargetBytecode(SystemUtils.JAVA_VERSION);
         // 脚本配置
         Properties properties = new Properties();
         try {

@@ -8,13 +8,13 @@ import org.gaius.octopus.core.workflow.graph.events.GraphNodeEventBase;
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
- * 分发器
+ * 事件分发器
  *
  * @author gaius.zhao
  * @date 2025/9/30
  */
 @Slf4j
-public class Dispatcher {
+public class EventDispatcher {
     
     /**
      * 事件队列
@@ -40,7 +40,7 @@ public class Dispatcher {
     
     private Thread dispatcherThread;
     
-    public Dispatcher(ArrayBlockingQueue<GraphNodeEventBase> eventQueue, EventHandler eventHandler,
+    public EventDispatcher(ArrayBlockingQueue<GraphNodeEventBase> eventQueue, EventHandler eventHandler,
             ExecutionCoordinator executionCoordinator, EventManager eventManager) {
         this.eventQueue = eventQueue;
         this.eventHandler = eventHandler;
@@ -94,7 +94,7 @@ public class Dispatcher {
                 }
             }
         } catch (Exception e) {
-            log.error("Dispatcher error", e);
+            log.error("EventDispatcher error", e);
             executionCoordinator.markFailed(e);
         } finally {
             executionCoordinator.markComplete();

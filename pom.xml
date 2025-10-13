@@ -38,7 +38,7 @@
         <module>core</module>
         <module>common</module>
         <module>datasource</module>
-        <module>datasource_plugin</module>
+        <module>plugin</module>
     </modules>
     <dependencyManagement>
         <dependencies>
