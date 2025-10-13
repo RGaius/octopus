@@ -31,7 +31,9 @@
     "test:update": "npm run jest -- -u",
     "tsc": "tsc --noEmit"
   },
-  "browserslist": ["defaults"],
+  "browserslist": [
+    "defaults"
+  ],
   "dependencies": {
     "@ant-design/icons": "^5.6.1",
     "@ant-design/plots": "^2.6.0",
@@ -39,14 +41,30 @@
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@antv/l7": "^2.22.7",
     "@antv/l7-react": "^2.4.3",
+    "@douyinfe/semi-icons": "^2.86.0",
+    "@flowgram.ai/form-materials": "^0.5.4",
+    "@flowgram.ai/free-container-plugin": "^0.5.4",
+    "@flowgram.ai/free-group-plugin": "^0.5.4",
+    "@flowgram.ai/free-layout-editor": "^0.5.4",
+    "@flowgram.ai/free-lines-plugin": "^0.5.4",
+    "@flowgram.ai/free-node-panel-plugin": "^0.5.4",
+    "@flowgram.ai/free-snap-plugin": "^0.5.4",
+    "@flowgram.ai/free-stack-plugin": "^0.5.4",
+    "@flowgram.ai/minimap-plugin": "^0.5.4",
+    "@flowgram.ai/panel-manager-plugin": "^0.5.4",
+    "@flowgram.ai/runtime-interface": "^0.5.4",
+    "@flowgram.ai/runtime-js": "^0.5.4",
     "antd": "^5.25.4",
     "antd-style": "^3.7.0",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
+    "lodash-es": "^4.17.21",
+    "nanoid": "^5.1.6",
     "numeral": "^2.0.6",
     "rc-util": "^5.44.4",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "styled-components": "^6.1.19"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^3.3.0",
@@ -75,5 +93,7 @@
     "umi-presets-pro": "^2.0.3",
     "umi-serve": "^1.9.11"
   },
-  "engines": { "node": ">=20.0.0" }
+  "engines": {
+    "node": ">=20.0.0"
+  }
 }
