@@ -2,6 +2,7 @@ package org.gaius.octopus.core.workflow.node;
 
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.gaius.octopus.core.workflow.entity.GraphRuntimeState;
 import org.gaius.octopus.core.workflow.node.enums.NodeTypeEnum;
 
 import java.util.Map;
@@ -14,10 +15,16 @@ import java.util.Map;
  */
 public class NodeFactory {
     
+    private GraphRuntimeState graphRuntimeState;
+    
+    public NodeFactory(GraphRuntimeState graphRuntimeState) {
+        this.graphRuntimeState = graphRuntimeState;
+    }
+    
     /**
      * 创建节点对象
      */
-    public static AbstractNode createNode(Map<String, Object> nodeConfig) {
+    public AbstractNode createNode(Map<String, Object> nodeConfig) {
         // 获取节点ID
         String nodeId = MapUtils.getString(nodeConfig, "id");
         if (StringUtils.isEmpty(nodeId)) {
@@ -38,7 +45,7 @@ public class NodeFactory {
         if (nodeTypeEnum == null) {
             throw new IllegalArgumentException("节点类型错误");
         }
-        AbstractNode node = nodeTypeEnum.createNode(nodeId, nodeData);
+        AbstractNode node = nodeTypeEnum.createNode(nodeConfig, this.graphRuntimeState);
         // 执行节点初始化
         node.init();
         return node;

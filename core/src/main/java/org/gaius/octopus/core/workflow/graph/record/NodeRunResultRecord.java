@@ -1,5 +1,6 @@
 package org.gaius.octopus.core.workflow.graph.record;
 
+import lombok.Builder;
 import org.gaius.octopus.core.workflow.enums.WorkflowNodeExecutionStatusEnum;
 
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
  * @param errorType  错误类型
  * @param retryIndex 重试索引
  */
-
+@Builder
 public record NodeRunResultRecord(WorkflowNodeExecutionStatusEnum statusEnum, Map<String, Object> inputs,
                                   Map<String, Object> processData, Map<String, Object> outputs,
                                   Map<String, Object> metadata, String edgeSourceHandle, String error, String errorType,

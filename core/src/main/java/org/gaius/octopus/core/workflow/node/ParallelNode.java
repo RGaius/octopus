@@ -1,8 +1,9 @@
 package org.gaius.octopus.core.workflow.node;
 
+import org.gaius.octopus.core.workflow.entity.GraphRuntimeState;
 import org.gaius.octopus.core.workflow.graph.events.GraphNodeEventBase;
+import org.gaius.octopus.core.workflow.node.enums.NodeTypeEnum;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,8 +14,9 @@ import java.util.Map;
  */
 public class ParallelNode extends AbstractNode {
     
-    public ParallelNode(String id, Map<String, Object> data) {
-        super(id, data);
+    public ParallelNode(Map<String, Object> config, GraphRuntimeState graphRuntimeState) {
+        super(config, graphRuntimeState);
+        this.nodeType = NodeTypeEnum.PARALLEL;
     }
     
     @Override
@@ -23,8 +25,9 @@ public class ParallelNode extends AbstractNode {
     }
     
     @Override
-    public List<GraphNodeEventBase> run() {
-        return List.of();
+    public GraphNodeEventBase execution() {
+        return null;
+        
     }
     
     @Override

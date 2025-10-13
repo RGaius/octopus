@@ -2,6 +2,7 @@ package org.gaius.octopus.core.workflow.graph;
 
 import lombok.Getter;
 import org.apache.commons.collections4.MapUtils;
+import org.gaius.octopus.core.workflow.entity.GraphRuntimeState;
 import org.gaius.octopus.core.workflow.node.AbstractNode;
 import org.gaius.octopus.core.workflow.node.NodeFactory;
 import org.gaius.octopus.core.workflow.node.StartNode;
@@ -60,7 +61,7 @@ public class Graph {
      *
      * @return
      */
-    public static Graph init(Map<String, Object> graphConfig) {
+    public static Graph init(Map<String, Object> graphConfig, GraphRuntimeState graphRuntimeState, String workflowId) {
         // 节点列表
         List<Map<String, Object>> nodes = (List<Map<String, Object>>) MapUtils.getObject(graphConfig, "nodes");
         
@@ -70,10 +71,11 @@ public class Graph {
         // 创建图对象
         Graph graph = new Graph();
         DefaultDirectedGraph<String, Edge> directedGraph = graph.directedGraph;
+        NodeFactory nodeFactory = new NodeFactory(graphRuntimeState);
         nodes.forEach(nodeConfig -> {
             String nodeId = MapUtils.getString(nodeConfig, "id");
             directedGraph.addVertex(nodeId);
-            AbstractNode nodeInstance = NodeFactory.createNode(nodeConfig);
+            AbstractNode nodeInstance = nodeFactory.createNode(nodeConfig);
             if (nodeInstance instanceof StartNode) {
                 graph.startNode = nodeInstance;
             }

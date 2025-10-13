@@ -2,6 +2,8 @@ package org.gaius.octopus.core.workflow.graph.events;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.gaius.octopus.core.workflow.graph.record.NodeRunResultRecord;
+import org.gaius.octopus.core.workflow.node.enums.NodeTypeEnum;
 
 import java.time.LocalDateTime;
 
@@ -24,6 +26,13 @@ public class NodeRunFailedEvent extends GraphNodeEventBase {
      * 开始时间
      */
     private LocalDateTime startAt;
+    
+    public NodeRunFailedEvent(String id, String nodeId, NodeTypeEnum nodeType, LocalDateTime startAt,
+            NodeRunResultRecord resultRecord, String error) {
+        super(id, nodeId, nodeType, null, null, resultRecord);
+        this.error = error;
+        this.startAt = startAt;
+    }
     
     @Override
     public String getEventName() {

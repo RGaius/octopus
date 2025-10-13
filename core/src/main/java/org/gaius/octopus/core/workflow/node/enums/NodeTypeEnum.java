@@ -1,6 +1,7 @@
 package org.gaius.octopus.core.workflow.node.enums;
 
 import lombok.Getter;
+import org.gaius.octopus.core.workflow.entity.GraphRuntimeState;
 import org.gaius.octopus.core.workflow.node.AbstractNode;
 import org.gaius.octopus.core.workflow.node.CodeNode;
 import org.gaius.octopus.core.workflow.node.ConditionNode;
@@ -25,8 +26,8 @@ public enum NodeTypeEnum {
      */
     START("start", StartNode.class) {
         @Override
-        public AbstractNode createNode(String id, Map<String, Object> data) {
-            return new StartNode(id, data);
+        public AbstractNode createNode(Map<String, Object> nodeConfig, GraphRuntimeState graphRuntimeState) {
+            return new StartNode(nodeConfig, graphRuntimeState);
         }
     },
     
@@ -35,8 +36,8 @@ public enum NodeTypeEnum {
      */
     END("end", EndNode.class) {
         @Override
-        public AbstractNode createNode(String id, Map<String, Object> data) {
-            return new EndNode(id, data);
+        public AbstractNode createNode(Map<String, Object> nodeConfig, GraphRuntimeState graphRuntimeState) {
+            return new EndNode(nodeConfig, graphRuntimeState);
         }
     },
     /**
@@ -44,8 +45,8 @@ public enum NodeTypeEnum {
      */
     CONDITION("condition", ConditionNode.class) {
         @Override
-        public AbstractNode createNode(String id, Map<String, Object> data) {
-            return new ConditionNode(id, data);
+        public AbstractNode createNode(Map<String, Object> nodeConfig, GraphRuntimeState graphRuntimeState) {
+            return new ConditionNode(nodeConfig, graphRuntimeState);
         }
     },
     /**
@@ -53,8 +54,8 @@ public enum NodeTypeEnum {
      */
     CODE("code", CodeNode.class) {
         @Override
-        public AbstractNode createNode(String id, Map<String, Object> data) {
-            return new CodeNode(id, data);
+        public AbstractNode createNode(Map<String, Object> nodeConfig, GraphRuntimeState graphRuntimeState) {
+            return new CodeNode(nodeConfig, graphRuntimeState);
         }
     },
     /**
@@ -62,8 +63,8 @@ public enum NodeTypeEnum {
      */
     INTERFACE("interface", InterfaceNode.class) {
         @Override
-        public AbstractNode createNode(String id, Map<String, Object> data) {
-            return new InterfaceNode(id, data);
+        public AbstractNode createNode(Map<String, Object> nodeConfig, GraphRuntimeState graphRuntimeState) {
+            return new InterfaceNode(nodeConfig, graphRuntimeState);
         }
     },
     /**
@@ -71,8 +72,8 @@ public enum NodeTypeEnum {
      */
     PARALLEL("parallel", ParallelNode.class) {
         @Override
-        public AbstractNode createNode(String id, Map<String, Object> data) {
-            return new ParallelNode(id, data);
+        public AbstractNode createNode(Map<String, Object> nodeConfig, GraphRuntimeState graphRuntimeState) {
+            return new ParallelNode(nodeConfig, graphRuntimeState);
         }
     };
     
@@ -94,11 +95,11 @@ public enum NodeTypeEnum {
     /**
      * 创建节点对象
      *
-     * @param id   节点ID
-     * @param data 节点数据
+     * @param nodeConfig        节点配置
+     * @param graphRuntimeState 图运行状态
      * @return
      */
-    public abstract AbstractNode createNode(String id, Map<String, Object> data);
+    public abstract AbstractNode createNode(Map<String, Object> nodeConfig, GraphRuntimeState graphRuntimeState);
     
     /**
      * 节点类型映射

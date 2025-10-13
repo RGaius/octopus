@@ -5,7 +5,6 @@ import org.gaius.octopus.core.workflow.graph.Graph;
 import org.gaius.octopus.core.workflow.graph.events.GraphNodeEventBase;
 import org.gaius.octopus.core.workflow.node.AbstractNode;
 
-import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
@@ -44,14 +43,17 @@ public class Worker implements Runnable {
             // 获取节点
             AbstractNode node = graph.getNodes().get(nodeId);
             // 运行节点
-            List<GraphNodeEventBase> eventBases = node.run();
-            for (GraphNodeEventBase eventBase : eventBases) {
+            node.run(event -> {
                 // 添加事件
-                this.eventQueue.put(eventBase);
-            }
-        } catch (InterruptedException e) {
-            log.error("worker interrupted", e);
-            Thread.currentThread().interrupt();
+                try {
+                    this.eventQueue.put(event);
+                } catch (InterruptedException e) {
+                    log.error("worker interrupted", e);
+                    Thread.currentThread().interrupt();
+                }
+            });
+        } catch (Exception e) {
+            log.error("worker error", e);
         }
     }
 }

@@ -1,8 +1,9 @@
 package org.gaius.octopus.core.workflow.node;
 
+import org.gaius.octopus.core.workflow.entity.GraphRuntimeState;
 import org.gaius.octopus.core.workflow.graph.events.GraphNodeEventBase;
+import org.gaius.octopus.core.workflow.node.enums.NodeTypeEnum;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,8 +14,9 @@ import java.util.Map;
  */
 public class StartNode extends AbstractNode {
     
-    public StartNode(String id, Map<String, Object> data) {
-        super(id, data);
+    public StartNode(Map<String, Object> nodeConfig, GraphRuntimeState graphRuntimeState) {
+        super(nodeConfig, graphRuntimeState);
+        this.nodeType = NodeTypeEnum.START;
     }
     
     @Override
@@ -23,8 +25,8 @@ public class StartNode extends AbstractNode {
     }
     
     @Override
-    public List<GraphNodeEventBase> run() {
-        return List.of();
+    public GraphNodeEventBase execution() {
+        return null;
     }
     
     @Override
