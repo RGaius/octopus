@@ -41,7 +41,6 @@
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@antv/l7": "^2.22.7",
     "@antv/l7-react": "^2.4.3",
-    "@douyinfe/semi-icons": "^2.86.0",
     "@flowgram.ai/form-materials": "^0.5.4",
     "@flowgram.ai/free-container-plugin": "^0.5.4",
     "@flowgram.ai/free-group-plugin": "^0.5.4",

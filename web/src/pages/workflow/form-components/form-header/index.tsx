@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { usePanelManager } from '@flowgram.ai/panel-manager-plugin';
 import { useClientContext, CommandService } from '@flowgram.ai/free-layout-editor';
 import { Button } from 'antd';
-import { IconClose, IconSmallTriangleDown, IconSmallTriangleLeft } from '@douyinfe/semi-icons';
+import { CloseOutlined, CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 
 import { toggleLoopExpanded } from '../../utils';
 import { FlowCommandId } from '../../shortcuts';
@@ -48,10 +48,9 @@ export function FormHeader() {
       <TitleInput readonly={readonly} updateTitleEdit={updateTitleEdit} titleEdit={titleEdit} />
       {node.renderData.expandable && !isSidebar && (
         <Button
-          type="primary"
-          icon={expanded ? <IconSmallTriangleDown /> : <IconSmallTriangleLeft />}
+          type="text"
+          icon={expanded ? <CaretDownOutlined /> : <CaretRightOutlined />}
           size="small"
-          theme="borderless"
           onClick={handleExpand}
         />
       )}
@@ -62,10 +61,9 @@ export function FormHeader() {
       )}
       {isSidebar && (
         <Button
-          type="primary"
-          icon={<IconClose />}
+          type="text"
+          icon={<CloseOutlined />}
           size="small"
-          theme="borderless"
           onClick={handleClose}
         />
       )}

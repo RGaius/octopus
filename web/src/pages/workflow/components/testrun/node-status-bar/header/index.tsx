@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 
 import classNames from 'classnames';
-import { IconChevronDown } from '@douyinfe/semi-icons';
+import { QuestionOutlined } from '@ant-design/icons';
 
 import { useNodeRenderContext } from '../../../../hooks';
 
@@ -54,7 +54,7 @@ export const NodeStatusHeader: React.FC<React.PropsWithChildren<NodeStatusBarPro
           {extraBtns.length > 0 ? extraBtns : null}
         </div>
         <div className={styles['status-btns']}>
-          <IconChevronDown
+          <QuestionOutlined
             className={classNames({
               [styles['is-show-detail']]: showDetail,
             })}

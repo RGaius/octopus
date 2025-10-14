@@ -5,8 +5,8 @@
 
 import { useState } from 'react';
 
-import { Button, Collapsible, Tabs, Tooltip } from 'antd';
-import { IconMinus } from '@douyinfe/semi-icons';
+import { Button, Collapse, Tabs, Tooltip } from 'antd';
+import { MinusOutlined } from '@ant-design/icons';
 
 import iconVariable from '../../../assets/icon-variable.png';
 import { GlobalVariableEditor } from './global-variable-editor';
@@ -19,27 +19,27 @@ export function VariablePanel() {
 
   return (
     <div className={styles['panel-wrapper']}>
-      <Tooltip content="Toggle Variable Panel">
+      <Tooltip title="Toggle Variable Panel">
         <Button
           className={`${styles['variable-panel-button']} ${isOpen ? styles.close : ''}`}
-          theme={isOpen ? 'borderless' : 'light'}
+          type={isOpen ? 'text' : 'dashed'}
           onClick={() => setOpen((_open) => !_open)}
         >
-          {isOpen ? <IconMinus /> : <img src={iconVariable} width={20} height={20} />}
+          {isOpen ? <MinusOutlined /> : <img src={iconVariable} width={20} height={20} />}
         </Button>
       </Tooltip>
-      <Collapsible isOpen={isOpen}>
+      <Collapse activeKey={1}>
         <div className={styles['panel-container']}>
           <Tabs>
-            <Tabs.TabPane itemKey="variables" tab="Variable List">
+            <Tabs.TabPane key="variables" tab="Variable List">
               <FullVariableList />
             </Tabs.TabPane>
-            <Tabs.TabPane itemKey="global" tab="Global Editor">
+            <Tabs.TabPane key="global" tab="Global Editor">
               <GlobalVariableEditor />
             </Tabs.TabPane>
           </Tabs>
         </div>
-      </Collapsible>
+      </Collapse>
     </div>
   );
 }

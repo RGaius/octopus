@@ -25,7 +25,7 @@ export const GroupTitle: FC = () => {
             onMouseDown={(e) => e.stopPropagation()}
             onBlur={() => setInputting(false)}
             draggable={false}
-            onEnterPress={() => setInputting(false)}
+            onPressEnter={() => setInputting(false)}
           />
         ) : (
           <p className="workflow-group-title" onDoubleClick={() => setInputting(true)}>

@@ -6,7 +6,7 @@
 import { useCallback } from 'react';
 
 import { usePlayground, usePlaygroundTools } from '@flowgram.ai/free-layout-editor';
-import { IconButton, Tooltip } from 'antd';
+import { Button, Tooltip } from 'antd';
 
 import { IconAutoLayout } from '../../assets/icon-auto-layout';
 
@@ -21,11 +21,10 @@ export const AutoLayout = () => {
   }, [tools]);
 
   return (
-    <Tooltip content={'Auto Layout'}>
-      <IconButton
+    <Tooltip title={'Auto Layout'}>
+      <Button
         disabled={playground.config.readonly}
-        type="tertiary"
-        theme="borderless"
+        type="text"
         onClick={autoLayout}
         icon={IconAutoLayout}
       />

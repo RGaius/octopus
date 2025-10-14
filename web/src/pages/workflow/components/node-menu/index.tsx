@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { FC, useCallback, useState, type MouseEvent } from 'react';
+import { FC, useCallback, useState, type MouseEvent } from "react";
 
 import {
   delay,
@@ -13,14 +13,13 @@ import {
   WorkflowDragService,
   WorkflowNodeEntity,
   WorkflowSelectService,
-} from '@flowgram.ai/free-layout-editor';
-import { NodeIntoContainerService } from '@flowgram.ai/free-container-plugin';
-import { Dropdown } from 'antd'
-import { IconMore } from '@douyinfe/semi-icons';
+} from "@flowgram.ai/free-layout-editor";
+import { NodeIntoContainerService } from "@flowgram.ai/free-container-plugin";
+import { Dropdown } from "antd";
 
-import { FlowNodeRegistry } from '../../typings';
-import { PasteShortcut } from '../../shortcuts/paste';
-import { CopyShortcut } from '../../shortcuts/copy';
+import { FlowNodeRegistry } from "../../typings";
+import { PasteShortcut } from "../../shortcuts/paste";
+import { CopyShortcut } from "../../shortcuts/copy";
 
 interface NodeMenuProps {
   node: WorkflowNodeEntity;
@@ -28,7 +27,11 @@ interface NodeMenuProps {
   deleteNode: () => void;
 }
 
-export const NodeMenu: FC<NodeMenuProps> = ({ node, deleteNode, updateTitleEdit }) => {
+export const NodeMenu: FC<NodeMenuProps> = ({
+  node,
+  deleteNode,
+  updateTitleEdit,
+}) => {
   const [visible, setVisible] = useState(true);
   const clientContext = useClientContext();
   const registry = node.getNodeRegistry<FlowNodeRegistry>();
@@ -109,7 +112,7 @@ export const NodeMenu: FC<NodeMenuProps> = ({ node, deleteNode, updateTitleEdit 
   if (!visible) {
     return <></>;
   }
-  const items =[
+  const items = [
     {
       key: "edit",
       label: "Edit Title",
@@ -121,13 +124,10 @@ export const NodeMenu: FC<NodeMenuProps> = ({ node, deleteNode, updateTitleEdit 
       onClick: handleCopy,
       disabled: registry.meta!.copyDisable === true,
     },
-  ]
+  ];
 
   return (
-    <Dropdown
-      trigger={["hover"]}
-      placement="bottomRight"
-    >
+    <Dropdown trigger={["hover"]} placement="bottomRight">
       {/* render={
         <Dropdown.Menu>
           <Dropdown.Item onClick={handleEditTitle}>Edit Title</Dropdown.Item>

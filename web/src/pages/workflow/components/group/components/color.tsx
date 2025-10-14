@@ -17,12 +17,12 @@ export const GroupColor: FC = () => (
       const colorName = field.value ?? defaultColor;
       return (
         <Popover
-          position="top"
+          placement="top"
           mouseLeaveDelay={300}
           content={
             <div className="workflow-group-color-palette">
               {Object.entries(groupColors).map(([name, color]) => (
-                <Tooltip content={name} key={name} mouseEnterDelay={300}>
+                <Tooltip title={name} key={name} mouseEnterDelay={300}>
                   <span
                     className="workflow-group-color-item"
                     key={name}

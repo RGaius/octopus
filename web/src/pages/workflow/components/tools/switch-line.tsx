@@ -6,7 +6,7 @@
 import { useCallback } from 'react';
 
 import { useService, WorkflowLinesManager } from '@flowgram.ai/free-layout-editor';
-import { IconButton, Tooltip } from 'antd';
+import { Button, Tooltip } from 'antd';
 
 import { IconSwitchLine } from '../../assets/icon-switch-line';
 
@@ -17,8 +17,8 @@ export const SwitchLine = () => {
   }, [linesManager]);
 
   return (
-    <Tooltip content={'Switch Line'}>
-      <IconButton type="tertiary" theme="borderless" onClick={switchLine} icon={IconSwitchLine} />
+    <Tooltip title={'Switch Line'}>
+      <Button type="text" onClick={switchLine} icon={IconSwitchLine} />
     </Tooltip>
   );
 };

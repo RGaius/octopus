@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import styled from 'styled-components';
-import { IconInfoCircle } from '@douyinfe/semi-icons';
+import styled from "styled-components";
+import { InfoCircleOutlined } from "@ant-design/icons";
 
 export const NodeWrapperStyle = styled.div`
   align-items: flex-start;
@@ -25,14 +25,14 @@ export const NodeWrapperStyle = styled.div`
 `;
 
 export const ErrorIcon = () => (
-  <IconInfoCircle
+  <InfoCircleOutlined
     style={{
-      position: 'absolute',
-      color: 'red',
+      position: "absolute",
+      color: "red",
       left: -6,
       top: -6,
       zIndex: 1,
-      background: 'white',
+      background: "white",
       borderRadius: 8,
     }}
   />

@@ -8,7 +8,7 @@ import { FunctionComponent } from 'react';
 import { SelectorBoxPopoverProps } from '@flowgram.ai/free-layout-editor';
 import { WorkflowGroupCommand } from '@flowgram.ai/free-group-plugin';
 import { Button, Tooltip } from 'antd'
-import { IconCopy, IconDeleteStroked, IconExpand, IconShrink } from '@douyinfe/semi-icons';
+import { CopyOutlined, DeleteOutlined, ExpandOutlined, ShrinkOutlined } from '@ant-design/icons';
 
 import { IconGroup } from '../group';
 import { FlowCommandId } from '../../shortcuts/constants';
@@ -40,7 +40,7 @@ export const SelectorBoxPopover: FunctionComponent<SelectorBoxPopoverProps> = ({
       >
         <Tooltip title={'Collapse'}>
           <Button
-            icon={<IconShrink />}
+            icon={<ShrinkOutlined />}
             style={{ height: BUTTON_HEIGHT }}
             type="primary"
             onMouseDown={(e) => {
@@ -51,7 +51,7 @@ export const SelectorBoxPopover: FunctionComponent<SelectorBoxPopoverProps> = ({
 
         <Tooltip title={'Expand'}>
           <Button
-            icon={<IconExpand />}
+            icon={<ExpandOutlined />}
             style={{ height: BUTTON_HEIGHT }}
             type="primary"
             onMouseDown={(e) => {
@@ -73,7 +73,7 @@ export const SelectorBoxPopover: FunctionComponent<SelectorBoxPopoverProps> = ({
 
         <Tooltip title={'Copy'}>
           <Button
-            icon={<IconCopy />}
+            icon={<CopyOutlined />}
             style={{ height: BUTTON_HEIGHT }}
             type="primary"
             onClick={() => {
@@ -85,7 +85,7 @@ export const SelectorBoxPopover: FunctionComponent<SelectorBoxPopoverProps> = ({
         <Tooltip title={'Delete'}>
           <Button
             type="primary"
-            icon={<IconDeleteStroked />}
+            icon={<DeleteOutlined />}
             style={{ height: BUTTON_HEIGHT }}
             onClick={() => {
               commandRegistry.executeCommand(FlowCommandId.DELETE);

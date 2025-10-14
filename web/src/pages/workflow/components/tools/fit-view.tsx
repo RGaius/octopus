@@ -4,17 +4,16 @@
  */
 
 import { usePlaygroundTools } from '@flowgram.ai/free-layout-editor';
-import { IconButton, Tooltip } from 'antd';
-import { IconExpand } from '@douyinfe/semi-icons';
+import { Button, Tooltip } from 'antd';
+import { ExpandAltOutlined } from '@ant-design/icons';
 
 export const FitView = () => {
   const tools = usePlaygroundTools();
   return (
-    <Tooltip content="FitView">
-      <IconButton
-        icon={<IconExpand />}
-        type="tertiary"
-        theme="borderless"
+    <Tooltip title="FitView">
+      <Button
+        icon={<ExpandAltOutlined />}
+        type="text"
         onClick={() => tools.fitView()}
       />
     </Tooltip>

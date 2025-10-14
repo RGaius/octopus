@@ -3,26 +3,24 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import { useRefresh } from '@flowgram.ai/free-layout-editor';
-import { useClientContext } from '@flowgram.ai/free-layout-editor';
-import { Tooltip, IconButton, Divider } from 'antd';
-import { IconUndo, IconRedo } from '@douyinfe/semi-icons';
+import { useRefresh } from "@flowgram.ai/free-layout-editor";
+import { useClientContext } from "@flowgram.ai/free-layout-editor";
+import { Tooltip, Button, Divider } from "antd";
+import { UndoOutlined, RedoOutlined } from "@ant-design/icons";
 
-import { TestRunButton } from '../testrun/testrun-button';
-import { AddNode } from '../add-node';
-import { ZoomSelect } from './zoom-select';
-import { SwitchLine } from './switch-line';
-import { ToolContainer, ToolSection } from './styles';
-import { Readonly } from './readonly';
-import { MinimapSwitch } from './minimap-switch';
-import { Minimap } from './minimap';
-import { Interactive } from './interactive';
-import { FitView } from './fit-view';
-import { Comment } from './comment';
-import { AutoLayout } from './auto-layout';
-import { ProblemButton } from '../problem-panel';
+import { TestRunButton } from "../testrun/testrun-button";
+import { AddNode } from "../add-node";
+import { ZoomSelect } from "./zoom-select";
+import { SwitchLine } from "./switch-line";
+import { ToolContainer, ToolSection } from "./styles";
+import { Readonly } from "./readonly";
+import { MinimapSwitch } from "./minimap-switch";
+import { Minimap } from "./minimap";
+import { FitView } from "./fit-view";
+import { AutoLayout } from "./auto-layout";
+import { ProblemButton } from "../problem-panel";
 
 export const DemoTools = () => {
   const { history, playground } = useClientContext();
@@ -39,44 +37,45 @@ export const DemoTools = () => {
   const refresh = useRefresh();
 
   useEffect(() => {
-    const disposable = playground.config.onReadonlyOrDisabledChange(() => refresh());
+    const disposable = playground.config.onReadonlyOrDisabledChange(() =>
+      refresh()
+    );
     return () => disposable.dispose();
   }, [playground]);
 
   return (
     <ToolContainer className="demo-free-layout-tools">
       <ToolSection>
-        <Interactive />
         <AutoLayout />
         <SwitchLine />
         <ZoomSelect />
         <FitView />
-        <MinimapSwitch minimapVisible={minimapVisible} setMinimapVisible={setMinimapVisible} />
+        <MinimapSwitch
+          minimapVisible={minimapVisible}
+          setMinimapVisible={setMinimapVisible}
+        />
         <Minimap visible={minimapVisible} />
         <Readonly />
-        <Comment />
-        <Tooltip content="Undo">
-          <IconButton
-            type="tertiary"
-            theme="borderless"
-            icon={<IconUndo />}
+        <Tooltip title="Undo">
+          <Button
+            type="text"
+            icon={<UndoOutlined />}
             disabled={!canUndo || playground.config.readonly}
             onClick={() => history.undo()}
           />
         </Tooltip>
-        <Tooltip content="Redo">
-          <IconButton
-            type="tertiary"
-            theme="borderless"
-            icon={<IconRedo />}
+        <Tooltip title="Redo">
+          <Button
+            type="text"
+            icon={<RedoOutlined />}
             disabled={!canRedo || playground.config.readonly}
             onClick={() => history.redo()}
           />
         </Tooltip>
         <ProblemButton />
-        <Divider layout="vertical" style={{ height: '16px' }} margin={3} />
+        <Divider type="vertical" style={{ height: "16px", margin: 3 }} />
         <AddNode disabled={playground.config.readonly} />
-        <Divider layout="vertical" style={{ height: '16px' }} margin={3} />
+        <Divider type="vertical" style={{ height: "16px", margin: 3 }} />
         <TestRunButton disabled={playground.config.readonly} />
       </ToolSection>
     </ToolContainer>

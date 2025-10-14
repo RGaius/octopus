@@ -8,7 +8,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { usePanelManager } from '@flowgram.ai/panel-manager-plugin';
 import { useClientContext, FlowNodeEntity } from '@flowgram.ai/free-layout-editor';
 import { Button, Badge } from 'antd';
-import { IconPlay } from '@douyinfe/semi-icons';
+import { PlayCircleOutlined } from '@ant-design/icons';
 
 import { testRunPanelFactory } from '../testrun-panel/test-run-panel';
 
@@ -57,18 +57,19 @@ export function TestRunButton(props: { disabled: boolean }) {
       <Button
         disabled={props.disabled}
         onClick={onTestRun}
-        icon={<IconPlay size="small" />}
+        icon={<PlayCircleOutlined />}
         className={styles.testrunSuccessButton}
       >
         Test Run
       </Button>
     ) : (
-      <Badge count={errorCount} position="rightTop" type="danger">
+      <Badge count={errorCount} >
         <Button
-          type="danger"
+          type="primary"
+          danger
           disabled={props.disabled}
           onClick={onTestRun}
-          icon={<IconPlay size="small" />}
+          icon={<PlayCircleOutlined/>}
           className={styles.testrunErrorButton}
         >
             Test Run

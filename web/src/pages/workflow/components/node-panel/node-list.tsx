@@ -16,6 +16,7 @@ import {
 import { canContainNode } from '../../utils';
 import { FlowNodeRegistry } from '../../typings';
 import { nodeRegistries } from '../../nodes';
+import { JSX } from 'react/jsx-runtime';
 
 const NodeWrap = styled.div`
   width: 100%;

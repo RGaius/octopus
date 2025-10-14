@@ -78,5 +78,9 @@ public class Result<T> {
         return new Result<>(ResponseCode.SYSTEM_ERROR, message, null, null);
     }
     
+    public boolean status() {
+        return this.code == ResponseCode.SUCCESS;
+    }
+    
     
 }

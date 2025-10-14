@@ -8,7 +8,7 @@ import { FC, useMemo, useState } from 'react';
 import classnames from 'classnames';
 import { NodeReport, WorkflowStatus } from '@flowgram.ai/runtime-interface';
 import { Tag, Button, Select } from 'antd'
-import { IconSpin } from '@douyinfe/semi-icons';
+import { QuestionOutlined } from '@ant-design/icons';
 
 import { NodeStatusHeader } from '../header';
 import { NodeStatusGroup } from '../group';
@@ -52,7 +52,7 @@ export const NodeStatusRender: FC<NodeStatusRenderProps> = ({ report }) => {
 
   const renderIcon = () => {
     if (isNodeProcessing) {
-      return <IconSpin spin className={classnames(styles.icon, styles.processing)} />;
+      return <QuestionOutlined spin className={classnames(styles.icon, styles.processing)} />;
     }
     if (isNodeSucceed) {
       return <IconSuccessFill />;

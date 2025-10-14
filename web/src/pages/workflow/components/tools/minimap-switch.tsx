@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Tooltip, IconButton } from 'antd';
+import { Tooltip, Button } from 'antd';
 
 import { UIIconMinimap } from './styles';
 
@@ -14,10 +14,9 @@ export const MinimapSwitch = (props: {
   const { minimapVisible, setMinimapVisible } = props;
 
   return (
-    <Tooltip content="Minimap">
-      <IconButton
-        type="tertiary"
-        theme="borderless"
+    <Tooltip title="Minimap">
+      <Button
+        type="text"
         icon={<UIIconMinimap visible={minimapVisible} />}
         onClick={() => setMinimapVisible(!minimapVisible)}
       />

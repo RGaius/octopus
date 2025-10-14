@@ -7,7 +7,7 @@ import { FC, useState } from 'react';
 
 import classNames from 'classnames';
 import { Tag } from 'antd'
-import { IconSmallTriangleDown } from '@douyinfe/semi-icons';
+import { QuestionOutlined } from '@ant-design/icons';
 
 import { DataStructureViewer } from '../viewer';
 
@@ -42,7 +42,7 @@ export const NodeStatusGroup: FC<NodeStatusGroupProps> = ({
         onClick={() => hasContent && !disableCollapse && setIsExpanded(!isExpanded)}
       >
         {!disableCollapse && (
-          <IconSmallTriangleDown
+          <QuestionOutlined
             className={classNames(styles['node-status-group-icon'], {
               [styles['node-status-group-icon-expanded']]: isExpanded && hasContent,
             })}

@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { useCallback } from 'react';
+import { useCallback } from "react";
 
-import { usePlayground } from '@flowgram.ai/free-layout-editor';
-import { IconButton, Tooltip } from 'antd';
-import { IconUnlock, IconLock } from '@douyinfe/semi-icons';
+import { usePlayground } from "@flowgram.ai/free-layout-editor";
+import { Button, Tooltip } from "antd";
+import { UnlockFilled, LockFilled } from "@ant-design/icons";
 
 export const Readonly = () => {
   const playground = usePlayground();
@@ -16,21 +16,11 @@ export const Readonly = () => {
   }, [playground]);
   return playground.config.readonly ? (
     <Tooltip title="Editable">
-      <IconButton
-        theme="borderless"
-        type="tertiary"
-        icon={<IconLock size="default" />}
-        onClick={toggleReadonly}
-      />
+      <Button type="text" icon={<LockFilled />} onClick={toggleReadonly} />
     </Tooltip>
   ) : (
     <Tooltip title="Readonly">
-      <IconButton
-        theme="borderless"
-        type="tertiary"
-        icon={<IconUnlock size="default" />}
-        onClick={toggleReadonly}
-      />
+      <Button type="text" icon={<UnlockFilled />} onClick={toggleReadonly} />
     </Tooltip>
   );
 };

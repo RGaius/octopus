@@ -3,10 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { PanelFactory, usePanelManager } from '@flowgram.ai/panel-manager-plugin';
-import { Button } from 'antd'
-import { IconUploadError, IconClose } from '@douyinfe/semi-icons';
-export const PROBLEM_PANEL = 'problem-panel';
+import {
+  PanelFactory,
+  usePanelManager,
+} from "@flowgram.ai/panel-manager-plugin";
+import { Button } from "antd";
+import { ExclamationCircleFilled, CloseOutlined } from "@ant-design/icons";
+export const PROBLEM_PANEL = "problem-panel";
 
 export const ProblemPanel = () => {
   const panelManager = usePanelManager();
@@ -14,17 +17,24 @@ export const ProblemPanel = () => {
   return (
     <div
       style={{
-        width: '100%',
-        height: '100%',
-        borderRadius: '8px',
-        background: 'rgb(251, 251, 251)',
-        border: '1px solid rgba(82,100,154, 0.13)',
+        width: "100%",
+        height: "100%",
+        borderRadius: "8px",
+        background: "rgb(251, 251, 251)",
+        border: "1px solid rgba(82,100,154, 0.13)",
       }}
     >
-      <div style={{ display: 'flex', height: '50px', alignItems: 'center', justifyContent: 'end' }}>
+      <div
+        style={{
+          display: "flex",
+          height: "50px",
+          alignItems: "center",
+          justifyContent: "end",
+        }}
+      >
         <Button
           type="text"
-          icon={<IconClose />}
+          icon={<CloseOutlined />}
           onClick={() => panelManager.close(PROBLEM_PANEL)}
         />
       </div>
@@ -45,8 +55,8 @@ export const ProblemButton = () => {
   return (
     <Button
       type="text"
-      icon={<IconUploadError />}
-      onClick={() => panelManager.open(PROBLEM_PANEL, 'bottom')}
+      icon={<ExclamationCircleFilled/>}
+      onClick={() => panelManager.open(PROBLEM_PANEL, "bottom")}
     />
   );
 };

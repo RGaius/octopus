@@ -10,7 +10,7 @@ import { WorkflowInputs, WorkflowOutputs } from '@flowgram.ai/runtime-interface'
 import { type PanelFactory, usePanelManager } from '@flowgram.ai/panel-manager-plugin';
 import { useService } from '@flowgram.ai/free-layout-editor';
 import { Button, Switch } from 'antd';
-import { IconClose, IconPlay, IconSpin } from '@douyinfe/semi-icons';
+import { CloseOutlined, PlaySquareOutlined, Loading3QuartersOutlined } from '@ant-design/icons';
 
 import { TestRunJsonInput } from '../testrun-json-input';
 import { TestRunForm } from '../testrun-form';
@@ -70,7 +70,7 @@ export const TestRunSidePanel: FC<TestRunSidePanelProps> = () => {
 
   const renderRunning = (
     <div className={styles['testrun-panel-running']}>
-      <IconSpin spin size="large" />
+      <Loading3QuartersOutlined />
       <div className={styles.text}>Running...</div>
     </div>
   );
@@ -104,7 +104,7 @@ export const TestRunSidePanel: FC<TestRunSidePanelProps> = () => {
   const renderButton = (
     <Button
       onClick={onTestRun}
-      icon={isRunning ? <IconCancel /> : <IconPlay size="small" />}
+      icon={isRunning ? <IconCancel /> : <PlaySquareOutlined />}
       className={classnames(styles.button, {
         [styles.running]: isRunning,
         [styles.default]: !isRunning,
@@ -140,10 +140,9 @@ export const TestRunSidePanel: FC<TestRunSidePanelProps> = () => {
         <div className={styles['testrun-panel-title']}>Test Run</div>
         <Button
           className={styles['testrun-panel-title']}
-          type="tertiary"
-          icon={<IconClose />}
+          type="text"
+          icon={<CloseOutlined />}
           size="small"
-          theme="borderless"
           onClick={onClose}
         />
       </div>

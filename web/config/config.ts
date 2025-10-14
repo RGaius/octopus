@@ -147,7 +147,7 @@ export default defineConfig({
   //================ pro 插件配置 =================
   presets: ['umi-presets-pro'],
   mock: {
-    include: ['mock/**/*', 'src/pages/**/_mock.ts'],
+    include: ['mock/*.ts'],
   },
   /**
    * @name 是否开启 mako

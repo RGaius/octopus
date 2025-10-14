@@ -4,9 +4,9 @@ import { Editor } from "./editor";
 
 const Workflow = () => {
   return (
-    <PageContainer>
-      <Editor />
-    </PageContainer>
+    <div style={{ height: "85vh" }}>
+      <Editor />;
+    </div>
   );
 };
 export default Workflow;
