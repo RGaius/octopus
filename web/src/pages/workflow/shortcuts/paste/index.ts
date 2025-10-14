@@ -21,7 +21,7 @@ import {
   WorkflowSelectService,
   Playground,
 } from '@flowgram.ai/free-layout-editor';
-import { Toast } from 'antd';
+import { message } from 'antd';
 
 import { WorkflowClipboardData, WorkflowClipboardRect } from '../type';
 import { FlowCommandId, WorkflowClipboardDataID } from '../constants';
@@ -77,9 +77,8 @@ export class PasteShortcut implements ShortcutsHandler {
     }
     const nodes = this.apply(data);
     if (nodes.length > 0) {
-      Toast.success({
-        content: 'Copy successfully',
-        showClose: false,
+      message.success({
+        content: 'Copy successfully'
       });
       // wait for nodes to render - 等待节点渲染
       await this.nextTick();
@@ -124,14 +123,14 @@ export class PasteShortcut implements ShortcutsHandler {
 
   private isValidData(data?: WorkflowClipboardData): boolean {
     if (data?.type !== WorkflowClipboardDataID) {
-      Toast.error({
+      message.error({
         content: 'Invalid clipboard data',
       });
       return false;
     }
     // Cross-domain means different environments, different plugins, cannot be copied - 跨域名表示不同环境，上架插件不同，不能复制
     if (data.source.host !== window.location.host) {
-      Toast.error({
+      message.error({
         content: 'Cannot paste nodes from different host',
       });
       return false;
@@ -145,7 +144,7 @@ export class PasteShortcut implements ShortcutsHandler {
         dropNode: parent,
       });
       if (!res.allowDrop) {
-        Toast.error({
+        message.error({
           content: res.message ?? 'Cannot paste nodes to invalid container',
         });
         return false;

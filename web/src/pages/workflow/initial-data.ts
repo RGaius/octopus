@@ -114,23 +114,6 @@ export const initialData: FlowDocumentJSON = {
       },
     },
     {
-      id: '159623',
-      type: 'comment',
-      meta: {
-        position: {
-          x: 180,
-          y: 775.2,
-        },
-      },
-      data: {
-        size: {
-          width: 240,
-          height: 150,
-        },
-        note: 'hi ~\n\nthis is a comment node\n\n- flowgram.ai',
-      },
-    },
-    {
       id: 'http_rDGIH',
       type: 'http',
       meta: {

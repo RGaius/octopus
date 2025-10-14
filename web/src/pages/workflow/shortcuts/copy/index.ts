@@ -18,21 +18,21 @@ import {
   WorkflowNodeJSON,
   WorkflowNodeMeta,
   WorkflowSelectService,
-} from '@flowgram.ai/free-layout-editor';
-import { Toast } from 'antd';
+} from "@flowgram.ai/free-layout-editor";
+import { message } from "antd";
 
 import type {
   WorkflowClipboardRect,
   WorkflowClipboardSource,
   WorkflowClipboardData,
-} from '../type';
-import { FlowCommandId, WorkflowClipboardDataID } from '../constants';
-import { WorkflowNodeType } from '../../nodes';
+} from "../type";
+import { FlowCommandId, WorkflowClipboardDataID } from "../constants";
+import { WorkflowNodeType } from "../../nodes";
 
 export class CopyShortcut implements ShortcutsHandler {
   public commandId = FlowCommandId.COPY;
 
-  public shortcuts = ['meta c', 'ctrl c'];
+  public shortcuts = ["meta c", "ctrl c"];
 
   private playgroundConfig: PlaygroundConfigEntity;
 
@@ -91,9 +91,11 @@ export class CopyShortcut implements ShortcutsHandler {
     if (!window.getSelection()?.toString()) {
       return false;
     }
-    await navigator.clipboard.writeText(window.getSelection()?.toString() ?? '');
-    Toast.success({
-      content: 'Text copied',
+    await navigator.clipboard.writeText(
+      window.getSelection()?.toString() ?? ""
+    );
+    message.success({
+      content: "Text copied",
     });
     return true;
   }
@@ -112,8 +114,8 @@ export class CopyShortcut implements ShortcutsHandler {
    */
   private isValid(nodes: WorkflowNodeEntity[]): boolean {
     if (nodes.length === 0) {
-      Toast.warning({
-        content: 'No nodes selected',
+      message.warning({
+        content: "No nodes selected",
       });
       return false;
     }
@@ -126,7 +128,9 @@ export class CopyShortcut implements ShortcutsHandler {
   private getValidNodes(nodes: WorkflowNodeEntity[]): WorkflowNodeEntity[] {
     return nodes.filter((n) => {
       if (
-        [WorkflowNodeType.Start, WorkflowNodeType.End].includes(n.flowNodeType as WorkflowNodeType)
+        [WorkflowNodeType.Start, WorkflowNodeType.End].includes(
+          n.flowNodeType as WorkflowNodeType
+        )
       ) {
         return false;
       }
@@ -221,7 +225,9 @@ export class CopyShortcut implements ShortcutsHandler {
    * get bounding rectangle of all nodes - 获取所有节点的边界矩形
    */
   private getEntireBounds(nodes: WorkflowNodeEntity[]): WorkflowClipboardRect {
-    const bounds = nodes.map((node) => node.getData<TransformData>(TransformData).bounds);
+    const bounds = nodes.map(
+      (node) => node.getData<TransformData>(TransformData).bounds
+    );
     const rect = Rectangle.enlarge(bounds);
     return {
       x: rect.x,
@@ -239,7 +245,7 @@ export class CopyShortcut implements ShortcutsHandler {
       await navigator.clipboard.writeText(JSON.stringify(data));
       this.notifySuccess();
     } catch (err) {
-      console.error('Failed to write text: ', err);
+      console.error("Failed to write text: ", err);
     }
   }
 
@@ -258,16 +264,14 @@ export class CopyShortcut implements ShortcutsHandler {
         startEndNodeTypes.includes(node.flowNodeType as WorkflowNodeType)
       )
     ) {
-      Toast.warning({
+      message.warning({
         content:
-          'The Start/End node cannot be duplicated, other nodes have been copied to the clipboard',
-        showClose: false,
+          "The Start/End node cannot be duplicated, other nodes have been copied to the clipboard",
       });
       return;
     }
-    Toast.success({
-      content: 'Nodes have been copied to the clipboard',
-      showClose: false,
+    message.success({
+      content: "Nodes have been copied to the clipboard",
     });
     return;
   }

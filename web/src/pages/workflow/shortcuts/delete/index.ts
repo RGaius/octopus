@@ -13,16 +13,16 @@ import {
   WorkflowSelectService,
   HistoryService,
   PlaygroundConfigEntity,
-} from '@flowgram.ai/free-layout-editor';
-import { Toast } from 'antd';
+} from "@flowgram.ai/free-layout-editor";
+import { message } from "antd";
 
-import { FlowCommandId } from '../constants';
-import { WorkflowNodeType } from '../../nodes';
+import { FlowCommandId } from "../constants";
+import { WorkflowNodeType } from "../../nodes";
 
 export class DeleteShortcut implements ShortcutsHandler {
   public commandId = FlowCommandId.DELETE;
 
-  public shortcuts = ['backspace', 'delete'];
+  public shortcuts = ["backspace", "delete"];
 
   private playgroundConfig: PlaygroundConfigEntity;
 
@@ -50,10 +50,14 @@ export class DeleteShortcut implements ShortcutsHandler {
     if (this.readonly) {
       return;
     }
-    const selection = Array.isArray(nodes) ? nodes : this.selectService.selection;
+    const selection = Array.isArray(nodes)
+      ? nodes
+      : this.selectService.selection;
     if (
       !this.isValid(
-        selection.filter((n) => n instanceof WorkflowNodeEntity) as WorkflowNodeEntity[]
+        selection.filter(
+          (n) => n instanceof WorkflowNodeEntity
+        ) as WorkflowNodeEntity[]
       )
     ) {
       return;
@@ -71,7 +75,9 @@ export class DeleteShortcut implements ShortcutsHandler {
       }
     });
     // filter out disposed entities - 过滤掉已删除的实体
-    this.selectService.selection = this.selectService.selection.filter((s) => !s.disposed);
+    this.selectService.selection = this.selectService.selection.filter(
+      (s) => !s.disposed
+    );
     this.historyService.endTransaction();
   }
 
@@ -87,12 +93,13 @@ export class DeleteShortcut implements ShortcutsHandler {
    */
   private isValid(nodes: WorkflowNodeEntity[]): boolean {
     const hasSystemNodes = nodes.some((n) =>
-      [WorkflowNodeType.Start, WorkflowNodeType.End].includes(n.flowNodeType as WorkflowNodeType)
+      [WorkflowNodeType.Start, WorkflowNodeType.End].includes(
+        n.flowNodeType as WorkflowNodeType
+      )
     );
     if (hasSystemNodes) {
-      Toast.error({
-        content: 'Start or End node cannot be deleted',
-        showClose: false,
+      message.error({
+        content: "Start or End node cannot be deleted",
       });
       return false;
     }

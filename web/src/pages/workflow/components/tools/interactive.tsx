@@ -57,9 +57,9 @@ export const Interactive = () => {
   };
 
   return (
-    <Popover trigger="custom" position="top" visible={visible} onClickOutSide={handleClose}>
+    <Popover trigger={['click']} placement="top" open={visible} onOpenChange={handleClose}>
       <Tooltip
-        content={mousePadTooltip}
+        title={mousePadTooltip}
         style={{ display: showInteractivePanel ? 'none' : 'block' }}
       >
         <div className="workflow-toolbar-interactive">

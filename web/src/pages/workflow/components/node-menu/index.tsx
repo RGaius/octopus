@@ -15,7 +15,9 @@ import {
   WorkflowSelectService,
 } from "@flowgram.ai/free-layout-editor";
 import { NodeIntoContainerService } from "@flowgram.ai/free-container-plugin";
-import { Dropdown } from "antd";
+import { Dropdown, Button } from "antd";
+import type { MenuProps } from "antd";
+import { EllipsisOutlined } from "@ant-design/icons";
 
 import { FlowNodeRegistry } from "../../typings";
 import { PasteShortcut } from "../../shortcuts/paste";
@@ -112,47 +114,73 @@ export const NodeMenu: FC<NodeMenuProps> = ({
   if (!visible) {
     return <></>;
   }
-  const items = [
+  const items: MenuProps["items"] = [
     {
       key: "edit",
-      label: "Edit Title",
-      onClick: handleEditTitle,
+      label: (
+        <Button onClick={handleEditTitle} type="text">
+          Edit Title
+        </Button>
+      ),
     },
+    canMoveOut
+      ? {
+          key: "moveOut",
+          label: (
+            <Button onClick={handleMoveOut} type="text">
+              Move out
+            </Button>
+          ),
+        }
+      : null,
     {
       key: "copy",
-      label: "Create Copy",
-      onClick: handleCopy,
-      disabled: registry.meta!.copyDisable === true,
+      label: (
+        <Button
+          onClick={handleCopy}
+          disabled={registry.meta!.copyDisable === true}
+          type="text"
+        >
+          Create Copy
+        </Button>
+      ),
+    },
+    registry.meta.isContainer
+      ? {
+          key: "autoLayout",
+          label: (
+            <Button onClick={handleAutoLayout} type="text">
+              Auto Layout
+            </Button>
+          ),
+        }
+      : null,
+    {
+      key: "delete",
+      label: (
+        <Button
+          onClick={handleDelete}
+          type="text"
+          disabled={
+            !!(
+              registry.canDelete?.(clientContext, node) ||
+              registry.meta!.deleteDisable
+            )
+          }
+        >
+          Delete
+        </Button>
+      ),
     },
   ];
 
   return (
-    <Dropdown trigger={["hover"]} placement="bottomRight">
-      {/* render={
-        <Dropdown.Menu>
-          <Dropdown.Item onClick={handleEditTitle}>Edit Title</Dropdown.Item>
-          {canMoveOut && <Dropdown.Item onClick={handleMoveOut}>Move out</Dropdown.Item>}
-          <Dropdown.Item onClick={handleCopy} disabled={registry.meta!.copyDisable === true}>
-            Create Copy
-          </Dropdown.Item>
-          {registry.meta.isContainer && (
-            <Dropdown.Item onClick={handleAutoLayout}>Auto Layout</Dropdown.Item>
-          )}
-          <Dropdown.Item
-            onClick={handleDelete}
-            disabled={!!(registry.canDelete?.(clientContext, node) || registry.meta!.deleteDisable)}
-          >
-            Delete
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      } */}
-      {/* <IconButton
-        color="secondary"
-        size="small"
-        theme="borderless"
-        icon={<IconMore />}
+    <Dropdown trigger={["hover"]} placement="bottomRight" menu={{ items }}>
+      <Button
+        type="text"
+        icon={<EllipsisOutlined style={{ color: "blue" }} />}
         onClick={(e) => e.stopPropagation()}
-      /> */}
+      />
     </Dropdown>
   );
 };

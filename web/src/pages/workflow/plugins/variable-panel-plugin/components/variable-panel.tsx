@@ -3,33 +3,39 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import { Button, Collapse, Tabs, Tooltip } from 'antd';
-import { MinusOutlined } from '@ant-design/icons';
+import { Button, Tabs, Tooltip } from "antd";
+import { MinusOutlined } from "@ant-design/icons";
 
-import iconVariable from '../../../assets/icon-variable.png';
-import { GlobalVariableEditor } from './global-variable-editor';
-import { FullVariableList } from './full-variable-list';
+import iconVariable from "../../../assets/icon-variable.png";
+import { GlobalVariableEditor } from "./global-variable-editor";
+import { FullVariableList } from "./full-variable-list";
 
-import styles from './index.module.less';
+import styles from "./index.module.less";
 
 export function VariablePanel() {
   const [isOpen, setOpen] = useState<boolean>(false);
 
   return (
-    <div className={styles['panel-wrapper']}>
+    <div className={styles["panel-wrapper"]}>
       <Tooltip title="Toggle Variable Panel">
         <Button
-          className={`${styles['variable-panel-button']} ${isOpen ? styles.close : ''}`}
-          type={isOpen ? 'text' : 'dashed'}
+          className={`${styles["variable-panel-button"]} ${
+            isOpen ? styles.close : ""
+          }`}
+          type="text"
           onClick={() => setOpen((_open) => !_open)}
         >
-          {isOpen ? <MinusOutlined /> : <img src={iconVariable} width={20} height={20} />}
+          {isOpen ? (
+            <MinusOutlined style={{ width: "20px", height: "20px" }} />
+          ) : (
+            <img src={iconVariable} width={20} height={20} />
+          )}
         </Button>
       </Tooltip>
-      <Collapse activeKey={1}>
-        <div className={styles['panel-container']}>
+      {isOpen ? (
+        <div className={styles["panel-container"]}>
           <Tabs>
             <Tabs.TabPane key="variables" tab="Variable List">
               <FullVariableList />
@@ -39,7 +45,7 @@ export function VariablePanel() {
             </Tabs.TabPane>
           </Tabs>
         </div>
-      </Collapse>
+      ) : null}
     </div>
   );
 }

@@ -27,7 +27,7 @@ export function Api() {
                 style={{ width: 85, maxWidth: 85, minWidth: 85 }}
                 size="small"
                 disabled={readonly}
-                optionList={[
+                options={[
                   { label: 'GET', value: 'GET' },
                   { label: 'POST', value: 'POST' },
                   { label: 'PUT', value: 'PUT' },

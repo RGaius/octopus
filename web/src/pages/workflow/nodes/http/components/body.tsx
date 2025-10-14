@@ -83,7 +83,7 @@ export function Body() {
               style={{ width: '100%', marginBottom: 10 }}
               disabled={readonly}
               size="small"
-              optionList={BODY_TYPE_OPTIONS}
+              options={BODY_TYPE_OPTIONS}
             />
             {renderBodyEditor(field.value)}
           </FormItem>
