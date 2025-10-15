@@ -17,7 +17,7 @@ import {
 import { NodeIntoContainerService } from "@flowgram.ai/free-container-plugin";
 import { Dropdown, Button } from "antd";
 import type { MenuProps } from "antd";
-import { EllipsisOutlined } from "@ant-design/icons";
+import { MoreOutlined } from "@ant-design/icons";
 
 import { FlowNodeRegistry } from "../../typings";
 import { PasteShortcut } from "../../shortcuts/paste";
@@ -178,7 +178,7 @@ export const NodeMenu: FC<NodeMenuProps> = ({
     <Dropdown trigger={["hover"]} placement="bottomRight" menu={{ items }}>
       <Button
         type="text"
-        icon={<EllipsisOutlined style={{ color: "blue" }} />}
+        icon={<MoreOutlined  style={{ color: "blue" }} />}
         onClick={(e) => e.stopPropagation()}
       />
     </Dropdown>

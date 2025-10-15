@@ -6,6 +6,7 @@
 import { domUtils, injectable, Layer } from '@flowgram.ai/free-layout-editor';
 
 import { VariablePanel } from './components/variable-panel';
+import { JSX } from 'react/jsx-runtime';
 
 @injectable()
 export class VariablePanelLayer extends Layer {

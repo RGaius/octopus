@@ -17,7 +17,7 @@ export function Outputs() {
   if (!isSidebar) {
     return (
       <>
-        <Divider />
+        <Divider size='small' style={{margin: 0}}/>
         <Field<IJsonSchema> name="outputs">
           {({ field }) => <DisplayOutputs value={field.value} />}
         </Field>
@@ -27,7 +27,7 @@ export function Outputs() {
 
   return (
     <>
-      <Divider />
+      <Divider size='small' style={{margin: 0}}/>
       <FormItem name="outputs" type="object" vertical>
         <Field<IJsonSchema> name="outputs">
           {({ field }) => (

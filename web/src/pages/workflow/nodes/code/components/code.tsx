@@ -19,7 +19,7 @@ export function Code() {
 
   return (
     <>
-      <Divider />
+      <Divider size='small' style={{margin: 0}}/>
       <Field<string> name="script.content">
         {({ field }) => (
           <TypeScriptCodeEditor
