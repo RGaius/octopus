@@ -7,7 +7,6 @@ import React from 'react';
 import {
   AvatarDropdown,
   AvatarName,
-  Question,
   SelectLang,
 } from '@/components';
 import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
@@ -65,7 +64,6 @@ export const layout: RunTimeLayoutConfig = ({
 }) => {
   return {
     actionsRender: () => [
-      <Question key="doc" />,
       <SelectLang key="SelectLang" />,
     ],
     avatarProps: {
@@ -78,6 +76,7 @@ export const layout: RunTimeLayoutConfig = ({
     waterMarkProps: {
       content: initialState?.currentUser?.name,
     },
+    logo: logo,
     onPageChange: () => {
       const { location } = history;
       // 如果没有登录，重定向到 login

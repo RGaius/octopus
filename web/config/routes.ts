@@ -73,6 +73,25 @@ export default [
     ],
   },
   {
+    name: "datasource",
+    path: "/datasource",
+    icon: "smile",
+    component: "./datasource",
+  },
+  {
+    name: "interface",
+    path: "/interface",
+    icon: "smile",
+    component: "./interface",
+  },
+
+  {
+    name: "workflow",
+    path: "/workflow",
+    icon: "smile",
+    component: "./workflow",
+  },
+  {
     path: "/form",
     icon: "form",
     name: "form",
@@ -107,35 +126,6 @@ export default [
     name: "list",
     routes: [
       {
-        path: "/list/search",
-        name: "search-list",
-        component: "./list/search",
-        routes: [
-          {
-            path: "/list/search",
-            redirect: "/list/search/articles",
-          },
-          {
-            name: "articles",
-            icon: "smile",
-            path: "/list/search/articles",
-            component: "./list/search/articles",
-          },
-          {
-            name: "projects",
-            icon: "smile",
-            path: "/list/search/projects",
-            component: "./list/search/projects",
-          },
-          {
-            name: "applications",
-            icon: "smile",
-            path: "/list/search/applications",
-            component: "./list/search/applications",
-          },
-        ],
-      },
-      {
         path: "/list",
         redirect: "/list/table-list",
       },
@@ -144,12 +134,6 @@ export default [
         icon: "smile",
         path: "/list/table-list",
         component: "./table-list",
-      },
-      {
-        name: "basic-list",
-        icon: "smile",
-        path: "/list/basic-list",
-        component: "./list/basic-list",
       },
       {
         name: "card-list",
@@ -260,12 +244,6 @@ export default [
   {
     path: "/",
     redirect: "/dashboard/analysis",
-  },
-  {
-    name: "workflow",
-    path: "/workflow",
-    icon: "smile",
-    component: "./workflow",
   },
   {
     component: "404",

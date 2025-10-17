@@ -27,7 +27,7 @@ export function Interface() {
                 field.onChange(value as string);
               }}
               disabled={readonly}
-              style={{ width: 85, maxWidth: 85, minWidth: 85 }}
+              style={{ width: 120 }}
               options={[
                 { label: "GET", value: "GET" },
                 { label: "POST", value: "POST" },
