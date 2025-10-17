@@ -12,7 +12,6 @@ import {
 
 import { useIsSidebar, useNodeRenderContext } from "../../../hooks";
 import { FormItem } from "../../../form-components";
-import { p } from "@douyinfe/semi-ui/lib/es/markdownRender/components";
 
 export function Outputs() {
   const { readonly } = useNodeRenderContext();
