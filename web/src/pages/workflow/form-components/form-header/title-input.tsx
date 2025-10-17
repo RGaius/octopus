@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from "react";
 
-import { Field, FieldRenderProps } from '@flowgram.ai/free-layout-editor';
-import { Typography, Input } from 'antd';
+import { Field, FieldRenderProps } from "@flowgram.ai/free-layout-editor";
+import { Typography, Input } from "antd";
 
-import { Title } from './styles';
-import { Feedback } from '../feedback';
+import { Title } from "./styles";
+import { Feedback } from "../feedback";
+import { JSX } from "react/jsx-runtime";
 const { Text } = Typography;
 
 export function TitleInput(props: {
@@ -18,7 +19,7 @@ export function TitleInput(props: {
   updateTitleEdit: (setEdit: boolean) => void;
 }): JSX.Element {
   const { readonly, titleEdit, updateTitleEdit } = props;
-  const ref = useRef<any>();
+  const ref = useRef<any>(null);
   const titleEditing = titleEdit && !readonly;
   useEffect(() => {
     if (titleEditing) {
@@ -29,7 +30,10 @@ export function TitleInput(props: {
   return (
     <Title>
       <Field name="title">
-        {({ field: { value, onChange }, fieldState }: FieldRenderProps<string>) => (
+        {({
+          field: { value, onChange },
+          fieldState,
+        }: FieldRenderProps<string>) => (
           <div style={{ height: 24 }}>
             {titleEditing ? (
               <Input
@@ -39,7 +43,7 @@ export function TitleInput(props: {
                 onBlur={() => updateTitleEdit(false)}
               />
             ) : (
-              <Text ellipsis={{ showTooltip: true }}>{value}</Text>
+              <Text ellipsis={true}>{value}</Text>
             )}
             <Feedback errors={fieldState?.errors} />
           </div>

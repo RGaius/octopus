@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { useCallback } from 'react';
+import React, { useCallback } from "react";
 
-import { DisplaySchemaTag } from '@flowgram.ai/form-materials';
-import { Typography, Tooltip } from 'antd';
+import { DisplaySchemaTag } from "@flowgram.ai/form-materials";
+import { Typography, Tooltip } from "antd";
 
-import './index.css';
+import "./index.css";
+import { JSX } from "react/jsx-runtime";
 
 const { Text } = Typography;
 
@@ -36,10 +37,12 @@ export function FormItem({
 }: FormItemProps): JSX.Element {
   const renderTitle = useCallback(
     (showTooltip?: boolean) => (
-      <div style={{ width: '0', display: 'flex', flex: '1' }}>
-        <Text style={{ width: '100%' }} ellipsis={{ showTooltip: !!showTooltip }}>
+      <div style={{ width: "0", display: "flex", flex: "1" }}>
+        <Text style={{ width: "100%" }} ellipsis={showTooltip ? true : false}>
           {name}
-          {required && <span style={{ color: '#f93920', paddingLeft: '2px' }}>*</span>}
+          {required && (
+            <span style={{ color: "#f93920", paddingLeft: "2px" }}>*</span>
+          )}
         </Text>
       </div>
     ),
@@ -50,36 +53,40 @@ export function FormItem({
       style={{
         fontSize: 12,
         marginBottom: 6,
-        width: '100%',
-        position: 'relative',
-        display: 'flex',
+        width: "100%",
+        position: "relative",
+        display: "flex",
         gap: 8,
         ...(vertical
-          ? { flexDirection: 'column' }
+          ? { flexDirection: "column" }
           : {
-              justifyContent: 'center',
-              alignItems: 'center',
+              justifyContent: "center",
+              alignItems: "center",
             }),
         ...style,
       }}
     >
       <div
         style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          color: 'var(--semi-color-text-0)',
+          justifyContent: "center",
+          alignItems: "center",
+          color: "var(--semi-color-text-0)",
           width: labelWidth || 118,
           minWidth: labelWidth || 118,
           maxWidth: labelWidth || 118,
-          position: 'relative',
-          display: 'flex',
+          position: "relative",
+          display: "flex",
           columnGap: 4,
           flexShrink: 0,
           ...labelStyle,
         }}
       >
         {type && <DisplaySchemaTag value={{ type }} />}
-        {description ? <Tooltip content={description}>{renderTitle()}</Tooltip> : renderTitle(true)}
+        {description ? (
+          <Tooltip title={description}>{renderTitle()}</Tooltip>
+        ) : (
+          renderTitle(true)
+        )}
       </div>
 
       <div
