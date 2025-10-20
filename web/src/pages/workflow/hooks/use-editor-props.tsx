@@ -197,9 +197,6 @@ export function useEditorProps(
          * Render Node
          */
         renderDefaultNode: BaseNode,
-        renderNodes: {
-          [WorkflowNodeType.Comment]: CommentRender,
-        },
       },
       /**
        * Node engine enable, you can configure formMeta in the FlowNodeRegistry

@@ -12,6 +12,7 @@ import {
 import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
+import logo from '../public/logo.png';
 
 const isDev =
   process.env.NODE_ENV === 'development' || process.env.CI;

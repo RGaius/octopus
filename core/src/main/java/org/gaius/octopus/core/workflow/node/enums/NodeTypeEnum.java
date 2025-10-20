@@ -93,6 +93,15 @@ public enum NodeTypeEnum {
         public AbstractNode createNode(Map<String, Object> nodeConfig, GraphRuntimeState graphRuntimeState) {
             return null;
         }
+    },
+    /**
+     * jsonpath节点
+     */
+    JSONPATH("jsonpath", null) {
+        @Override
+        public AbstractNode createNode(Map<String, Object> nodeConfig, GraphRuntimeState graphRuntimeState) {
+            return null;
+        }
     };
     
     NodeTypeEnum(String type, Class<? extends AbstractNode> nodeClass) {
