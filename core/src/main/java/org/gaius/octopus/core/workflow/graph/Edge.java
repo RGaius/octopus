@@ -36,6 +36,11 @@ public class Edge extends DefaultEdge {
     private String target;
     
     /**
+     * 条件分支的条件
+     */
+    private String sourceHandle;
+    
+    /**
      * 状态
      * <p>
      * 默认未知状态

@@ -84,7 +84,8 @@
             <column name="content" type="longtext" remarks="接口内容">
                 <constraints nullable="false"/>
             </column>
-            <column name="args" type="longtext" remarks="接口参数"/>
+            <column name="inputs" type="longtext" remarks="输入参数"/>
+            <column name="outputs" type="longtext" remarks="输出参数"/>
             <column name="create_time" type="datetime" remarks="创建时间"/>
             <column name="create_by" type="varchar(32)" remarks="创建人"/>
             <column name="update_time" type="datetime" remarks="更新时间"/>

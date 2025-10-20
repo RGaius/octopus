@@ -30,13 +30,8 @@ public class NodeFactory {
         if (StringUtils.isEmpty(nodeId)) {
             throw new IllegalArgumentException("节点ID不能为空");
         }
-        // 获取节点数据
-        Map<String, Object> nodeData = (Map<String, Object>) MapUtils.getMap(nodeConfig, "data");
-        if (MapUtils.isEmpty(nodeData)) {
-            throw new IllegalArgumentException("节点数据不能为空");
-        }
         // 获取节点类型
-        String nodeType = MapUtils.getString(nodeData, "type");
+        String nodeType = MapUtils.getString(nodeConfig, "type");
         if (StringUtils.isEmpty(nodeType)) {
             throw new IllegalArgumentException("节点类型不能为空");
         }
@@ -44,6 +39,11 @@ public class NodeFactory {
         NodeTypeEnum nodeTypeEnum = NodeTypeEnum.resolve(nodeType);
         if (nodeTypeEnum == null) {
             throw new IllegalArgumentException("节点类型错误");
+        }
+        // 获取节点数据
+        Map<String, Object> nodeData = (Map<String, Object>) MapUtils.getMap(nodeConfig, "data");
+        if (MapUtils.isEmpty(nodeData)) {
+            throw new IllegalArgumentException("节点数据不能为空");
         }
         AbstractNode node = nodeTypeEnum.createNode(nodeConfig, this.graphRuntimeState);
         // 执行节点初始化

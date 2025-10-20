@@ -84,9 +84,11 @@ public class Graph {
         
         AtomicInteger edgeCount = new AtomicInteger(0);
         edges.forEach(edgeConfig -> {
-            String source = MapUtils.getString(edgeConfig, "source");
-            String target = MapUtils.getString(edgeConfig, "target");
+            String source = MapUtils.getString(edgeConfig, "sourceNodeID");
+            String target = MapUtils.getString(edgeConfig, "targetNodeID");
             Edge edge = directedGraph.addEdge(source, target);
+            String edgeSourceHandle = MapUtils.getString(edgeConfig, "sourcePortID");
+            edge.setSourceHandle(edgeSourceHandle);
             String edgeId = "edge_%d".formatted(edgeCount.getAndIncrement());
             edge.setId(edgeId);
             graph.edges.put(edgeId, edge);

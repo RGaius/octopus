@@ -75,6 +75,24 @@ public enum NodeTypeEnum {
         public AbstractNode createNode(Map<String, Object> nodeConfig, GraphRuntimeState graphRuntimeState) {
             return new ParallelNode(nodeConfig, graphRuntimeState);
         }
+    },
+    /**
+     * 分组节点
+     */
+    GROUP("group", null) {
+        @Override
+        public AbstractNode createNode(Map<String, Object> nodeConfig, GraphRuntimeState graphRuntimeState) {
+            return null;
+        }
+    },
+    /**
+     * 循环节点
+     */
+    LOOP("loop", null) {
+        @Override
+        public AbstractNode createNode(Map<String, Object> nodeConfig, GraphRuntimeState graphRuntimeState) {
+            return null;
+        }
     };
     
     NodeTypeEnum(String type, Class<? extends AbstractNode> nodeClass) {
